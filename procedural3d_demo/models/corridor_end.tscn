@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/procedural3d/modular_room.gd" type="Script" id=1]
+[ext_resource path="res://procedural3d_demo/models/wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/procedural3d/modular_room_exit.gd" type="Script" id=3]
+
+[node name="corridor_end" type="Spatial" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="wall" parent="." index="0" instance=ExtResource( 2 )]
+
+count_x = 2
+
+[node name="exit" type="Spatial" parent="." index="1"]
+
+script = ExtResource( 3 )
+exit_type = "room_door"
+inbound = false
+
+

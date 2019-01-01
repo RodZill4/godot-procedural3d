@@ -1,0 +1,891 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://procedural3d_demo/models/room1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://procedural3d_demo/models/corridor1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://procedural3d_demo/models/corridor_joint.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/procedural3d/generator.gd" type="Script" id=4]
+[ext_resource path="res://procedural3d_demo/models/corridor2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://procedural3d_demo/models/corridor3.tscn" type="PackedScene" id=6]
+[ext_resource path="res://procedural3d_demo/models/corridor4.tscn" type="PackedScene" id=7]
+[ext_resource path="res://procedural3d_demo/models/stairs.tscn" type="PackedScene" id=8]
+[ext_resource path="res://procedural3d_demo/models/corridor_end.tscn" type="PackedScene" id=9]
+[ext_resource path="res://procedural3d_demo/models/barrels.tscn" type="PackedScene" id=10]
+[ext_resource path="res://procedural3d_demo/models/crates.tscn" type="PackedScene" id=11]
+[ext_resource path="res://procedural3d_demo/models/door_iron.tscn" type="PackedScene" id=12]
+[ext_resource path="res://procedural3d_demo/models/door_wood.tscn" type="PackedScene" id=13]
+[ext_resource path="res://procedural3d_demo/models/wall_torch.tscn" type="PackedScene" id=14]
+[ext_resource path="res://procedural3d_demo/models/wall_chains.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/procedural3d/modular_room.gd" type="Script" id=16]
+[ext_resource path="res://procedural3d_demo/models/meshes/door_wood.tres" type="ArrayMesh" id=17]
+[ext_resource path="res://procedural3d_demo/models/meshes/prop_wall_big_door_iron.tres" type="ArrayMesh" id=18]
+[ext_resource path="res://procedural3d_demo/third_person/player.tscn" type="PackedScene" id=19]
+[ext_resource path="res://procedural3d_demo/third_person/camera.tscn" type="PackedScene" id=20]
+
+[sub_resource type="ProceduralSky" id=1]
+
+radiance_size = 4
+sky_top_color = Color( 0.0470588, 0.454902, 0.976471, 1 )
+sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
+sky_curve = 0.25
+sky_energy = 1.0
+ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
+ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
+ground_curve = 0.01
+ground_energy = 1.0
+sun_color = Color( 1, 1, 1, 1 )
+sun_latitude = 35.0
+sun_longitude = 0.0
+sun_angle_min = 1.0
+sun_angle_max = 100.0
+sun_curve = 0.05
+sun_energy = 16.0
+texture_size = 2
+
+[sub_resource type="Environment" id=2]
+
+background_mode = 2
+background_sky = SubResource( 1 )
+background_sky_custom_fov = 0.0
+background_color = Color( 0, 0, 0, 1 )
+background_energy = 1.0
+background_canvas_max_layer = 0
+ambient_light_color = Color( 0.0664063, 0.0664063, 0.0664063, 1 )
+ambient_light_energy = 1.0
+ambient_light_sky_contribution = 1.0
+fog_enabled = false
+fog_color = Color( 0.5, 0.6, 0.7, 1 )
+fog_sun_color = Color( 1, 0.9, 0.7, 1 )
+fog_sun_amount = 0.0
+fog_depth_enabled = true
+fog_depth_begin = 10.0
+fog_depth_curve = 1.0
+fog_transmit_enabled = false
+fog_transmit_curve = 1.0
+fog_height_enabled = false
+fog_height_min = 0.0
+fog_height_max = 100.0
+fog_height_curve = 1.0
+tonemap_mode = 0
+tonemap_exposure = 1.0
+tonemap_white = 1.0
+auto_exposure_enabled = false
+auto_exposure_scale = 0.4
+auto_exposure_min_luma = 0.05
+auto_exposure_max_luma = 8.0
+auto_exposure_speed = 0.5
+ss_reflections_enabled = false
+ss_reflections_max_steps = 64
+ss_reflections_fade_in = 0.15
+ss_reflections_fade_out = 2.0
+ss_reflections_depth_tolerance = 0.2
+ss_reflections_roughness = true
+ssao_enabled = false
+ssao_radius = 1.0
+ssao_intensity = 1.0
+ssao_radius2 = 0.0
+ssao_intensity2 = 1.0
+ssao_bias = 0.01
+ssao_light_affect = 0.0
+ssao_color = Color( 0, 0, 0, 1 )
+ssao_quality = 0
+ssao_blur = 3
+ssao_edge_sharpness = 4.0
+dof_blur_far_enabled = false
+dof_blur_far_distance = 10.0
+dof_blur_far_transition = 5.0
+dof_blur_far_amount = 0.1
+dof_blur_far_quality = 1
+dof_blur_near_enabled = false
+dof_blur_near_distance = 2.0
+dof_blur_near_transition = 1.0
+dof_blur_near_amount = 0.1
+dof_blur_near_quality = 1
+glow_enabled = false
+glow_levels/1 = false
+glow_levels/2 = false
+glow_levels/3 = true
+glow_levels/4 = false
+glow_levels/5 = true
+glow_levels/6 = false
+glow_levels/7 = false
+glow_intensity = 0.8
+glow_strength = 1.0
+glow_bloom = 0.0
+glow_blend_mode = 2
+glow_hdr_threshold = 1.0
+glow_hdr_scale = 2.0
+glow_bicubic_upscale = false
+adjustment_enabled = false
+adjustment_brightness = 1.0
+adjustment_contrast = 1.0
+adjustment_saturation = 1.0
+_sections_unfolded = [ "Background", "Glow" ]
+
+[sub_resource type="SphereMesh" id=3]
+
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+radius = 5.0
+height = 10.0
+radial_segments = 64
+rings = 32
+is_hemisphere = false
+
+[node name="Spatial" type="Spatial" index="0"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="." index="0"]
+
+transform = Transform( 1, 0, 0, 0, -0.34202, 0.939693, 0, -0.939693, -0.34202, 0, 129, 0 )
+layers = 1
+light_color = Color( 1, 1, 1, 1 )
+light_energy = 1.0
+light_indirect_energy = 1.0
+light_negative = false
+light_specular = 0.5
+light_bake_mode = 1
+light_cull_mask = -1
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_bias = 0.1
+shadow_contact = 0.0
+shadow_reverse_cull_face = false
+editor_only = false
+directional_shadow_mode = 2
+directional_shadow_split_1 = 0.1
+directional_shadow_split_2 = 0.2
+directional_shadow_split_3 = 0.5
+directional_shadow_blend_splits = false
+directional_shadow_normal_bias = 0.8
+directional_shadow_bias_split_scale = 0.25
+directional_shadow_depth_range = 0
+directional_shadow_max_distance = 200.0
+_sections_unfolded = [ "Shadow" ]
+
+[node name="JoinTest" type="Spatial" parent="." index="1"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -27, 0 )
+visible = false
+
+[node name="room1" parent="JoinTest" index="0" instance=ExtResource( 1 )]
+
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 6, 0, -9 )
+
+[node name="corridor1" parent="JoinTest" index="1" instance=ExtResource( 2 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0 )
+
+[node name="corridor_joint" parent="JoinTest" index="2" instance=ExtResource( 3 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
+
+[node name="corridor2" parent="JoinTest" index="3" instance=ExtResource( 2 )]
+
+transform = Transform( -1, 0, -8.74227e-008, 0, 1, 0, 8.74227e-008, 0, -1, 6, 0, -1 )
+
+[node name="room2" parent="JoinTest" index="4" instance=ExtResource( 1 )]
+
+transform = Transform( 1, 0, 1.74845e-007, 0, 1, 0, -1.74845e-007, 0, 1, -3, 0, 8 )
+
+[node name="DungeonGenerator" type="Spatial" parent="." index="2"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0 )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="rooms" type="Spatial" parent="DungeonGenerator" index="0"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -36, 0 )
+visible = false
+
+[node name="room_start" parent="DungeonGenerator/rooms" index="0" instance=ExtResource( 1 )]
+
+[node name="corridor_joint" parent="DungeonGenerator/rooms" index="1" instance=ExtResource( 3 )]
+
+transform = Transform( -1, 0, 8.74227e-008, 0, 1, 0, -8.74227e-008, 0, -1, 3, 5, -1 )
+
+[node name="corridor1" parent="DungeonGenerator/rooms" index="2" instance=ExtResource( 2 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 9 )
+
+[node name="corridor2" parent="DungeonGenerator/rooms" index="3" instance=ExtResource( 5 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 10 )
+
+[node name="corridor3" parent="DungeonGenerator/rooms" index="4" instance=ExtResource( 6 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 9 )
+
+[node name="corridor4" parent="DungeonGenerator/rooms" index="5" instance=ExtResource( 7 )]
+
+[node name="stairs" parent="DungeonGenerator/rooms" index="6" instance=ExtResource( 8 )]
+
+[node name="corridor_end" parent="DungeonGenerator/rooms" index="7" instance=ExtResource( 9 )]
+
+[node name="objects" type="Spatial" parent="DungeonGenerator" index="1"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -26, 0 )
+visible = false
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/objects" index="0"]
+
+[node name="barrels" parent="DungeonGenerator/objects/crates" index="0" instance=ExtResource( 10 )]
+
+[node name="crates" parent="DungeonGenerator/objects/crates" index="1" instance=ExtResource( 11 )]
+
+[node name="door" type="Spatial" parent="DungeonGenerator/objects" index="1"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, 0 )
+
+[node name="door_iron" parent="DungeonGenerator/objects/door" index="0" instance=ExtResource( 12 )]
+
+[node name="door_wood" parent="DungeonGenerator/objects/door" index="1" instance=ExtResource( 13 )]
+
+[node name="wall_decoration" type="Spatial" parent="DungeonGenerator/objects" index="2"]
+
+[node name="wall_torch" parent="DungeonGenerator/objects/wall_decoration" index="0" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+
+[node name="wall_chains" parent="DungeonGenerator/objects/wall_decoration" index="1" instance=ExtResource( 15 )]
+
+[node name="generated" type="Spatial" parent="DungeonGenerator" index="2"]
+
+[node name="room_start" type="Spatial" parent="DungeonGenerator/generated" index="0" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start" index="13" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start" index="14" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start" index="15" instance=ExtResource( 14 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start" index="16" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+
+[node name="wall_torch4" type="Spatial" parent="DungeonGenerator/generated/room_start" index="17" instance=ExtResource( 14 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/generated/room_start" index="18" instance=ExtResource( 11 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start" index="19" instance=ExtResource( 10 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_wood" type="MeshInstance" parent="DungeonGenerator/generated/room_start" index="20" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 17 )
+skeleton = NodePath("..")
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor3" type="Spatial" parent="DungeonGenerator/generated" index="1" instance=ExtResource( 6 )]
+
+editor/display_folded = true
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, -1, 0, -10 )
+script = ExtResource( 16 )
+
+[node name="stairs" type="Spatial" parent="DungeonGenerator/generated" index="2" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, -8, 0, -10 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="room_start2" type="Spatial" parent="DungeonGenerator/generated" index="3" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 8.74228e-008, 0, 1, 0, -8.74228e-008, 0, -1, -0.999999, 0, -21 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="13" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="14" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="15" instance=ExtResource( 14 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+
+[node name="wall_chains3" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="16" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="17" instance=ExtResource( 14 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="18" instance=ExtResource( 10 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="19" instance=ExtResource( 11 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_iron" type="MeshInstance" parent="DungeonGenerator/generated/room_start2" index="20" instance=ExtResource( 12 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 18 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="corridor2" type="Spatial" parent="DungeonGenerator/generated" index="4" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, -3, 4, -10 )
+script = ExtResource( 16 )
+
+[node name="corridor_joint" type="Spatial" parent="DungeonGenerator/generated" index="5" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( -4.37113e-008, 0, -1, 0, 1, 0, 1, 0, -4.37113e-008, 4, 0, -11 )
+script = ExtResource( 16 )
+
+[node name="corridor4" type="Spatial" parent="DungeonGenerator/generated" index="6" instance=ExtResource( 7 )]
+
+editor/display_folded = true
+transform = Transform( -4.37113e-008, 0, -1, 0, 1, 0, 1, 0, -4.37113e-008, 9, 0, -10 )
+script = ExtResource( 16 )
+
+[node name="room_start5" type="Spatial" parent="DungeonGenerator/generated" index="7" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 9.9476e-014, 0, 1, 0, -9.9476e-014, 0, 1, 10, 0, 0 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="13" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="14" instance=ExtResource( 14 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="15" instance=ExtResource( 14 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+
+[node name="wall_torch4" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="16" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="17" instance=ExtResource( 15 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="18" instance=ExtResource( 10 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="barrels2" type="Spatial" parent="DungeonGenerator/generated/room_start5" index="19" instance=ExtResource( 10 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_wood" type="MeshInstance" parent="DungeonGenerator/generated/room_start5" index="20" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 17 )
+skeleton = NodePath("..")
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor_joint2" type="Spatial" parent="DungeonGenerator/generated" index="8" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, -1, 4, -13 )
+script = ExtResource( 16 )
+
+[node name="corridor5" type="Spatial" parent="DungeonGenerator/generated" index="9" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, -2, 4, -16 )
+script = ExtResource( 16 )
+
+[node name="corridor_joint3" type="Spatial" parent="DungeonGenerator/generated" index="10" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( 3.0598e-007, 0, 1, 0, 1, 0, -1, 0, 3.0598e-007, -5, 4, -18 )
+script = ExtResource( 16 )
+
+[node name="corridor6" type="Spatial" parent="DungeonGenerator/generated" index="11" instance=ExtResource( 7 )]
+
+editor/display_folded = true
+transform = Transform( 3.0598e-007, 0, 1, 0, 1, 0, -1, 0, 3.0598e-007, -10, 4, -19 )
+script = ExtResource( 16 )
+
+[node name="stairs2" type="Spatial" parent="DungeonGenerator/generated" index="12" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( -2.18557e-007, 0, -1, 0, 1, 0, 1, 0, -2.18557e-007, -18, 0, -20 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="room_start3" type="Spatial" parent="DungeonGenerator/generated" index="13" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 2.62268e-007, 0, 1, 0, -2.62268e-007, 0, -1, -11, 4, -29 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="13" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="14" instance=ExtResource( 14 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="15" instance=ExtResource( 15 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="16" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="17" instance=ExtResource( 14 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="18" instance=ExtResource( 10 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="barrels2" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="19" instance=ExtResource( 10 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_iron" type="MeshInstance" parent="DungeonGenerator/generated/room_start3" index="20" instance=ExtResource( 12 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 18 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="corridor7" type="Spatial" parent="DungeonGenerator/generated" index="14" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( -2.18557e-007, 0, -1, 0, 1, 0, 1, 0, -2.18557e-007, -13, 0, -22 )
+script = ExtResource( 16 )
+
+[node name="corridor_joint4" type="Spatial" parent="DungeonGenerator/generated" index="15" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -3.49691e-007, 0, 1, 0, 3.49691e-007, 0, 1, -11, 0, -25 )
+script = ExtResource( 16 )
+
+[node name="corridor8" type="Spatial" parent="DungeonGenerator/generated" index="16" instance=ExtResource( 6 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -3.49691e-007, 0, 1, 0, 3.49691e-007, 0, 1, -10, 0, -30 )
+script = ExtResource( 16 )
+
+[node name="corridor_end" type="Spatial" parent="DungeonGenerator/generated" index="17" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( 3.0598e-007, 0, 1, 0, 1, 0, -1, 0, 3.0598e-007, -5, 0, -30 )
+script = ExtResource( 16 )
+
+[node name="corridor_end2" type="Spatial" parent="DungeonGenerator/generated" index="18" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( -3.93402e-007, 0, -1, 0, 1, 0, 1, 0, -3.93402e-007, -16, 0, -31 )
+script = ExtResource( 16 )
+
+[node name="corridor_joint5" type="Spatial" parent="DungeonGenerator/generated" index="19" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -3.49691e-007, 0, 1, 0, 3.49691e-007, 0, 1, -11, 0, -35 )
+script = ExtResource( 16 )
+
+[node name="corridor9" type="Spatial" parent="DungeonGenerator/generated" index="20" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( 3.05979e-007, 0, 1, 0, 1, 0, -1, 0, 3.05979e-007, -7.99999, 0, -39 )
+script = ExtResource( 16 )
+
+[node name="stairs3" type="Spatial" parent="DungeonGenerator/generated" index="21" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( 3.05979e-007, 0, 1, 0, 1, 0, -1, 0, 3.05979e-007, -2.99999, -4, -39 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor10" type="Spatial" parent="DungeonGenerator/generated" index="22" instance=ExtResource( 6 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 2.62268e-007, 0, 1, 0, -2.62268e-007, 0, -1, -11, -4, -39 )
+script = ExtResource( 16 )
+
+[node name="room_start6" type="Spatial" parent="DungeonGenerator/generated" index="23" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 2.62268e-007, 0, 1, 0, -2.62268e-007, 0, -1, -11, -4, -49 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="13" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="14" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="15" instance=ExtResource( 15 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains3" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="16" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="17" instance=ExtResource( 14 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="18" instance=ExtResource( 11 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="crates3" type="Spatial" parent="DungeonGenerator/generated/room_start6" index="19" instance=ExtResource( 11 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_wood" type="MeshInstance" parent="DungeonGenerator/generated/room_start6" index="20" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 17 )
+skeleton = NodePath("..")
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor_end3" type="Spatial" parent="DungeonGenerator/generated" index="24" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, -11, -4, -33 )
+script = ExtResource( 16 )
+
+[node name="room_start7" type="Spatial" parent="DungeonGenerator/generated" index="25" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+transform = Transform( -2.18557e-007, 0, -1, 0, 1, 0, 1, 0, -2.18557e-007, -21, -4, -38 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="13" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="14" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="15" instance=ExtResource( 14 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="16" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+
+[node name="wall_chains3" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="17" instance=ExtResource( 15 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="18" instance=ExtResource( 10 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="barrels2" type="Spatial" parent="DungeonGenerator/generated/room_start7" index="19" instance=ExtResource( 10 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_wood" type="MeshInstance" parent="DungeonGenerator/generated/room_start7" index="20" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 17 )
+skeleton = NodePath("..")
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+_sections_unfolded = [ "Transform" ]
+
+[node name="stairs4" type="Spatial" parent="DungeonGenerator/generated" index="26" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( -4.37115e-008, 0, 1, 0, 1, 0, -1, 0, -4.37115e-008, 17, -4, -9 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor11" type="Spatial" parent="DungeonGenerator/generated" index="27" instance=ExtResource( 6 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 9.9476e-014, 0, 1, 0, -9.9476e-014, 0, 1, 10, -4, -8 )
+script = ExtResource( 16 )
+
+[node name="corridor_end4" type="Spatial" parent="DungeonGenerator/generated" index="28" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 9.9476e-014, 0, 1, 0, -9.9476e-014, 0, 1, 9, -4, -3 )
+script = ExtResource( 16 )
+
+[node name="corridor_joint6" type="Spatial" parent="DungeonGenerator/generated" index="29" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, -8.74229e-008, 0, 1, 0, 8.74229e-008, 0, -1, 10, -4, -14 )
+script = ExtResource( 16 )
+
+[node name="corridor1" type="Spatial" parent="DungeonGenerator/generated" index="30" instance=ExtResource( 2 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 9, -4, -19 )
+script = ExtResource( 16 )
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/corridor1" index="8" instance=ExtResource( 14 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, -3 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/corridor1" index="9" instance=ExtResource( 14 )]
+
+transform = Transform( -5.21541e-008, 0, 1, 0, 1, 0, -1, 0, -5.21541e-008, -1, 0, 3 )
+
+[node name="corridor_joint7" type="Spatial" parent="DungeonGenerator/generated" index="31" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 5, -4, -8 )
+script = ExtResource( 16 )
+
+[node name="room_start4" type="Spatial" parent="DungeonGenerator/generated" index="32" instance=ExtResource( 1 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 9, -4, -29 )
+script = ExtResource( 16 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="13" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="14" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="15" instance=ExtResource( 14 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="16" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+
+[node name="wall_torch4" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="17" instance=ExtResource( 14 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="18" instance=ExtResource( 11 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="crates3" type="Spatial" parent="DungeonGenerator/generated/room_start4" index="19" instance=ExtResource( 11 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="door_wood" type="MeshInstance" parent="DungeonGenerator/generated/room_start4" index="20" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 17 )
+skeleton = NodePath("..")
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor12" type="Spatial" parent="DungeonGenerator/generated" index="33" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 8.74226e-008, 0, 1, 0, -8.74226e-008, 0, -1, 1, -4, -11 )
+script = ExtResource( 16 )
+
+[node name="corridor_end5" type="Spatial" parent="DungeonGenerator/generated" index="34" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 8.74226e-008, 0, 1, 0, -8.74226e-008, 0, -1, 7.15256e-007, -4, -14 )
+script = ExtResource( 16 )
+
+[node name="Player" parent="." index="3" instance=ExtResource( 19 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0 )
+run_speed = 5.0
+
+[node name="Camera" parent="." index="4" instance=ExtResource( 20 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 50, 7 )
+environment = SubResource( 2 )
+near = 0.2
+far = 100.0
+
+[node name="Spatial" type="RigidBody" parent="." index="5"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 146.71, 0 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = false
+contacts_reported = 0
+contact_monitor = false
+sleeping = true
+can_sleep = true
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+linear_velocity = Vector3( 0, 0, 0 )
+linear_damp = -1.0
+angular_velocity = Vector3( 0, 0, 0 )
+angular_damp = -1.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Spatial" index="0"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 3 )
+skeleton = NodePath("..")
+material/0 = null
+
+
