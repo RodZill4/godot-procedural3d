@@ -66,7 +66,7 @@ func generate(undo_redo = null):
 				for e in all_exits:
 					if e != exit:
 						e.connected_to.forbidden_connections.append({ room=incorrect_room.model, exit=e.name })
-						exits.append(e)
+						exits.append(e.connected_to)
 				remove_child(incorrect_room)
 				incorrect_room.free()
 			else:
