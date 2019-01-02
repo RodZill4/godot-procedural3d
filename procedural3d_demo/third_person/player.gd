@@ -7,6 +7,8 @@ var map = null
 var motion = Vector3(0, 0, 0)
 var previous_position = Vector3(0, 0, 0)
 
+var dead = false
+
 func _ready():
 	pass
 
@@ -47,3 +49,14 @@ func _physics_process(delta):
 	previous_position = translation
 	motion.x = h_motion.x
 	motion.z = h_motion.y
+
+func kill():
+	if dead == false:
+		dead = true
+		set_physics_process(false)
+		$Model.anim("Die")
+		$RespawnTimer.start()
+
+func _on_RespawnTimer_timeout():
+	transform = get_node("../Respawn").transform
+	set_physics_process(true)

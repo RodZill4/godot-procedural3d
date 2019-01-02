@@ -18,7 +18,7 @@ extents = Vector3( 1, 0.416568, 1.48643 )
 
 extents = Vector3( 2.06319, 2.94491, 2.29616 )
 
-[node name="stairs" type="Spatial" index="0"]
+[node name="stairs" type="Spatial"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]

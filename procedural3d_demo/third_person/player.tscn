@@ -3,18 +3,17 @@
 [ext_resource path="res://procedural3d_demo/third_person/player.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/third_person/human.tscn" type="PackedScene" id=2]
 
-
 [sub_resource type="CapsuleShape" id=1]
 
 radius = 0.162409
 height = 0.766036
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = false
 input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 3
+collision_mask = 3
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -36,5 +35,14 @@ disabled = false
 
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="RespawnTimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 10.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]
 
 

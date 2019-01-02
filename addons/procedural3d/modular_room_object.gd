@@ -17,7 +17,8 @@ func generate(generator):
 	if objects.empty():
 		return false
 	if object != null:
-		object.queue_free()
+		get_parent().remove_child(object)
+		object.free()
 	object = objects[randi()%objects.size()].duplicate()
 	object.transform = transform
 	get_parent().add_child(object)

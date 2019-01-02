@@ -47,8 +47,6 @@ func do_generate(undo_redo = null):
 		room.translation = Vector3(0, 0, 0)
 		generated.add_child(room)
 		room.set_owner(get_owner())
-		room.generate(self)
-		room.set_display_folded(true)
 		exits = room.get_exits()
 	while !exits.empty() and !do_stop_generation:
 		var exit = exits.pop_front()
@@ -107,13 +105,17 @@ func do_generate(undo_redo = null):
 		if keep:
 			for e in room.get_exits():
 				exits.append(e)
-			room.generate(undo_redo)
-			room.set_display_folded(true)
 			if undo_redo != null:
 				undo_redo.add_undo_method(room, "queue_free")
 	if undo_redo != null:
 		undo_redo.commit_action()
-	print(str(exits.size())+" pending exits")
+	if exits.empty():
+		for c in generated.get_children():
+			c.generate(undo_redo)
+			c.set_display_folded(true)
+		print("Scene was generated successfully !")
+	else:
+		print(str(exits.size())+" pending exits")
 	generating = false
 	do_stop_generation = false
 	if toolbar != null:

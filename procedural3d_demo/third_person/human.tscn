@@ -3,12 +3,11 @@
 [ext_resource path="res://procedural3d_demo/third_person/human.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/third_person/ClothedLightSkin1.png" type="Texture" id=2]
 
-
 [sub_resource type="Animation" id=1]
 
 resource_name = "Die"
 length = 3.5
-loop = true
+loop = false
 step = 0.1
 tracks/0/type = "transform"
 tracks/0/path = NodePath(".:Hips")
