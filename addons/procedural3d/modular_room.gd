@@ -12,6 +12,11 @@ const OBJECT_SCRIPT = preload("res://addons/procedural3d/modular_room_object.gd"
 func _ready():
 	pass
 
+func get_toolbar_buttons(tb = null):
+	var buttons = []
+	buttons.append({ label="Configure", function="generate" })
+	return buttons
+
 func duplicate():
 	var rv = .duplicate()
 	rv.model = name

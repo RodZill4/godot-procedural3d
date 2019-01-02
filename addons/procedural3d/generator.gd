@@ -1,22 +1,28 @@
 tool
 extends Spatial
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+var toolbar = null
+var generating = false
+var do_stop_generation = false
 
-func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	pass
-
-func clean():
-	if has_node("generated"):
-		get_node("generated").queue_free()
+func get_toolbar_buttons(tb = null):
+	toolbar = tb
+	var buttons = []
+	buttons.append({ label="Generate", function="generate", disabled=generating and !do_stop_generation })
+	buttons.append({ label="Stop", function="stop_generation", disabled=!generating or do_stop_generation })
+	buttons.append({ label="Clean", function="clean", disabled=!has_node("generated") })
+	return buttons
 
 func generate(undo_redo = null):
+	if !generating:
+		do_generate(undo_redo)
+	
+func stop_generation(undo_redo = null):
+	do_stop_generation = true
+
+func do_generate(undo_redo = null):
+	generating = true
 	print("Generating...")
-	PhysicsServer.set_active(true)
 	if undo_redo != null:
 		undo_redo.create_action("Generate 3d scene from modular subscenes")
 	var rooms = $rooms.get_children()
@@ -44,8 +50,7 @@ func generate(undo_redo = null):
 		room.generate(self)
 		room.set_display_folded(true)
 		exits = room.get_exits()
-	var count = 0
-	while !exits.empty():
+	while !exits.empty() and !do_stop_generation:
 		var exit = exits.pop_front()
 		#print("Trying to match exit "+exit.name+" of room "+exit.get_parent().name)
 		var room_candidates = []
@@ -60,7 +65,7 @@ func generate(undo_redo = null):
 					room_candidates.append(r)
 		if room_candidates.empty():
 			var incorrect_room = exit.get_parent()
-			print("Failed to find matching room for "+incorrect_room.model)
+			#print("Failed to find matching room for "+incorrect_room.model)
 			var all_exits = incorrect_room.get_all_exits()
 			if all_exits.size() == 2:
 				for e in all_exits:
@@ -88,6 +93,7 @@ func generate(undo_redo = null):
 		var keep = true
 		if room.has_node("space"):
 			var area1 = room.get_node("space")
+			PhysicsServer.set_active(true)
 			yield(get_tree(), "physics_frame")
 			yield(get_tree(), "physics_frame")
 			yield(get_tree(), "physics_frame")
@@ -97,6 +103,7 @@ func generate(undo_redo = null):
 				exits.append(exit)
 				keep = false
 				exit.forbidden_connections.append({ room=room_name, exit=selected_exit_name })
+			PhysicsServer.set_active(false)
 		if keep:
 			for e in room.get_exits():
 				exits.append(e)
@@ -104,10 +111,14 @@ func generate(undo_redo = null):
 			room.set_display_folded(true)
 			if undo_redo != null:
 				undo_redo.add_undo_method(room, "queue_free")
-		count += 1
-		if count > 20:
-			break
 	if undo_redo != null:
 		undo_redo.commit_action()
-	PhysicsServer.set_active(false)
 	print(str(exits.size())+" pending exits")
+	generating = false
+	do_stop_generation = false
+	if toolbar != null:
+		toolbar.update_buttons()
+
+func clean(undo_redo = null):
+	if has_node("generated"):
+		get_node("generated").free()

@@ -16,7 +16,6 @@ func edit_object(o):
 	update_buttons()
 
 func update_buttons():
-	$Merge.visible = false
 	if edited_object is MeshInstance:
 		for c in edited_object.get_children():
 			if c is MeshInstance and c.visible:
@@ -31,10 +30,20 @@ func update_buttons():
 			$JoinRooms.text = "Cancel join "+joined_room.name
 		else:
 			$JoinRooms.text = "Join "+joined_room.name+" to "+edited_object.name
-	$Clean.visible = edited_object.has_method("clean")
-	$Generate.visible = edited_object.has_method("generate")
+	# Scene type specific buttons
+	$VSeparator.visible = false
+	for b in $SceneButtons.get_children():
+		b.queue_free()
+	if edited_object.has_method("get_toolbar_buttons"):
+		for b in edited_object.get_toolbar_buttons(self):
+			var button = Button.new()
+			button.text = b.label
+			button.disabled =  b.has("disabled") and b.disabled == true
+			$SceneButtons.add_child(button)
+			button.connect("pressed", self, "on_SceneButton_pressed", [ b.function ])
+			$VSeparator.visible = true
 
-func _on_Merge_pressed():
+func _on_MergeMeshes_pressed():
 	if edited_object is MeshInstance:
 		edited_object.mesh = edited_object.mesh.duplicate()
 		for c in edited_object.get_children():
@@ -49,9 +58,6 @@ func _on_Merge_pressed():
 							arrays[0][j] += t
 					edited_object.mesh.add_surface_from_arrays(primitive, arrays)
 					edited_object.mesh.surface_set_material(edited_object.mesh.get_surface_count()-1, c.mesh.surface_get_material(i))
-
-func _on_Reload_pressed():
-	plugin.reload_toolbar()
 
 func join_rooms(r1, r2):
 	if r1.get_parent() != r2.get_parent():
@@ -91,3 +97,7 @@ func _on_Clean_pressed():
 
 func _on_Generate_pressed():
 	edited_object.generate(plugin.get_undo_redo())
+
+func on_SceneButton_pressed(function):
+	edited_object.call(function, plugin.get_undo_redo())
+	update_buttons()
