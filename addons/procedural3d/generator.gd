@@ -50,29 +50,53 @@ func generate(undo_redo = null):
 		#print("Trying to match exit "+exit.name+" of room "+exit.get_parent().name)
 		var room_candidates = []
 		for r in rooms:
-			#print("Trying "+r.name)
-			if !r.get_exits(exit.exit_type, !exit.inbound).empty():
-				#print("OK")
-				room_candidates.append(r)
+			var possible_exits = r.get_exits(exit.exit_type, !exit.inbound)
+			var allowed_exits = []
+			for e in possible_exits:
+				if !exit.is_forbidden(r.name, e.name):
+					allowed_exits.append(e)
+			if !allowed_exits.empty():
+				for i in range(r.probability):
+					room_candidates.append(r)
 		if room_candidates.empty():
-			print("Failed to find matching room")
-			break
-		var room = room_candidates[randi()%room_candidates.size()].duplicate()
+			var incorrect_room = exit.get_parent()
+			print("Failed to find matching room for "+incorrect_room.model)
+			var all_exits = incorrect_room.get_all_exits()
+			if all_exits.size() == 2:
+				for e in all_exits:
+					if e != exit:
+						e.connected_to.forbidden_connections.append({ room=incorrect_room.model, exit=e.name })
+						exits.append(e)
+				remove_child(incorrect_room)
+				incorrect_room.free()
+			else:
+				print("Cannot fix room "+incorrect_room.name)
+			continue
+		var room = room_candidates[randi()%room_candidates.size()]
+		var room_name = room.name
+		room = room.duplicate()
 		generated.add_child(room)
 		room.set_owner(get_owner())
-		var exit_candidates = room.get_exits(exit.exit_type, !exit.inbound)
-		exit_candidates[randi()%exit_candidates.size()].join(exit)
+		var possible_exits = room.get_exits(exit.exit_type, !exit.inbound)
+		var allowed_exits = []
+		for e in possible_exits:
+			if !exit.is_forbidden(room_name, e.name):
+				allowed_exits.append(e)
+		var selected_exit = allowed_exits[randi()%allowed_exits.size()]
+		var selected_exit_name = selected_exit.name
+		selected_exit.join(exit)
 		var keep = true
 		if room.has_node("space"):
 			var area1 = room.get_node("space")
-			print("Testing collisions")
-			yield(get_tree(), "idle_frame")
-			print(area1.get_overlapping_areas())
+			yield(get_tree(), "physics_frame")
+			yield(get_tree(), "physics_frame")
+			yield(get_tree(), "physics_frame")
 			if !area1.get_overlapping_areas().empty():
 				generated.remove_child(room)
 				room.free()
 				exits.append(exit)
 				keep = false
+				exit.forbidden_connections.append({ room=room_name, exit=selected_exit_name })
 		if keep:
 			for e in room.get_exits():
 				exits.append(e)
@@ -86,5 +110,4 @@ func generate(undo_redo = null):
 	if undo_redo != null:
 		undo_redo.commit_action()
 	PhysicsServer.set_active(false)
-	if exits.empty():
-		print("No pending exit")
+	print(str(exits.size())+" pending exits")

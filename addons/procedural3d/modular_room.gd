@@ -1,12 +1,28 @@
 tool
 extends Spatial
 
+export(int, 1, 10) var probability = 1
+
+var model = null
+
 const GENERATOR_SCRIPT = preload("res://addons/procedural3d/generator.gd")
 const EXIT_SCRIPT = preload("res://addons/procedural3d/modular_room_exit.gd")
 const OBJECT_SCRIPT = preload("res://addons/procedural3d/modular_room_object.gd")
 
 func _ready():
 	pass
+
+func duplicate():
+	var rv = .duplicate()
+	rv.model = name
+	return rv
+
+func get_all_exits():
+	var exits = []
+	for c in get_children():
+		if c.get_script() == EXIT_SCRIPT:
+			exits.append(c)
+	return exits
 
 func get_exits(type = null, inbound = false):
 	var exits = []

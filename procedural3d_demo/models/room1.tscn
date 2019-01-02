@@ -15,6 +15,7 @@ extents = Vector3( 4.11695, 1.16193, 3.92735 )
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+probability = 1
 
 [node name="floor" parent="." index="0" instance=ExtResource( 2 )]
 

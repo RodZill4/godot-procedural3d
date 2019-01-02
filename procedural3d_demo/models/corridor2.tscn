@@ -9,9 +9,10 @@
 
 extents = Vector3( 1.01597, 1.16193, 2.85478 )
 
-[node name="corridor2" type="Spatial" index="0"]
+[node name="corridor2" type="Spatial"]
 
 script = ExtResource( 1 )
+probability = 1
 
 [node name="floor1" parent="." index="0" instance=ExtResource( 2 )]
 
