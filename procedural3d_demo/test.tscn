@@ -1,18 +1,18 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://procedural3d_demo/models/room1.tscn" type="PackedScene" id=1]
-[ext_resource path="res://procedural3d_demo/models/corridor1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://procedural3d_demo/models/corridor_joint.tscn" type="PackedScene" id=3]
+[ext_resource path="res://procedural3d_demo/rooms/room1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://procedural3d_demo/rooms/corridor1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://procedural3d_demo/rooms/corridor_joint.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/procedural3d/generator.gd" type="Script" id=4]
-[ext_resource path="res://procedural3d_demo/models/corridor2.tscn" type="PackedScene" id=5]
-[ext_resource path="res://procedural3d_demo/models/corridor3.tscn" type="PackedScene" id=6]
-[ext_resource path="res://procedural3d_demo/models/corridor4.tscn" type="PackedScene" id=7]
-[ext_resource path="res://procedural3d_demo/models/stairs.tscn" type="PackedScene" id=8]
-[ext_resource path="res://procedural3d_demo/models/corridor_end.tscn" type="PackedScene" id=9]
-[ext_resource path="res://procedural3d_demo/models/barrels.tscn" type="PackedScene" id=10]
-[ext_resource path="res://procedural3d_demo/models/crates.tscn" type="PackedScene" id=11]
-[ext_resource path="res://procedural3d_demo/models/door_iron.tscn" type="PackedScene" id=12]
-[ext_resource path="res://procedural3d_demo/models/door_wood.tscn" type="PackedScene" id=13]
+[ext_resource path="res://procedural3d_demo/rooms/corridor2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://procedural3d_demo/rooms/corridor3.tscn" type="PackedScene" id=6]
+[ext_resource path="res://procedural3d_demo/rooms/corridor4.tscn" type="PackedScene" id=7]
+[ext_resource path="res://procedural3d_demo/rooms/stairs.tscn" type="PackedScene" id=8]
+[ext_resource path="res://procedural3d_demo/rooms/corridor_end.tscn" type="PackedScene" id=9]
+[ext_resource path="res://procedural3d_demo/objects/crates/barrels.tscn" type="PackedScene" id=10]
+[ext_resource path="res://procedural3d_demo/objects/crates/crates.tscn" type="PackedScene" id=11]
+[ext_resource path="res://procedural3d_demo/objects/door/door_iron.tscn" type="PackedScene" id=12]
+[ext_resource path="res://procedural3d_demo/objects/door/door_wood.tscn" type="PackedScene" id=13]
 [ext_resource path="res://procedural3d_demo/models/wall_torch.tscn" type="PackedScene" id=14]
 [ext_resource path="res://procedural3d_demo/models/wall_chains.tscn" type="PackedScene" id=15]
 [ext_resource path="res://procedural3d_demo/third_person/player.tscn" type="PackedScene" id=16]
@@ -185,7 +185,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="rooms" type="Spatial" parent="DungeonGenerator" index="0"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -36, 0 )
 visible = false
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/procedural3d/toolbar.gd" type="Script" id=1]
 
-[node name="Toolbar" type="HBoxContainer" index="0"]
+[node name="Toolbar" type="HBoxContainer"]
 
 anchor_left = 0.0
 anchor_top = 0.0
