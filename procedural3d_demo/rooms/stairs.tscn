@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/procedural3d/modular_room.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/models/floor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://procedural3d_demo/models/meshes/big_door.tres" type="ArrayMesh" id=3]
+[ext_resource path="res://procedural3d_demo/models/big_door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://procedural3d_demo/models/wall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/procedural3d/modular_room_exit.gd" type="Script" id=5]
 [ext_resource path="res://procedural3d_demo/models/meshes/struct_large_straight_steps.tres" type="ArrayMesh" id=6]
@@ -12,7 +12,7 @@
 
 [sub_resource type="BoxShape" id=1]
 
-extents = Vector3( 1, 0.416568, 2.43078 )
+extents = Vector3( 1, 0.416568, 1.48643 )
 
 [sub_resource type="BoxShape" id=2]
 
@@ -22,6 +22,7 @@ extents = Vector3( 2.06319, 2.94491, 2.29616 )
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+probability = 1
 
 [node name="floor" parent="." index="0" instance=ExtResource( 2 )]
 
@@ -30,88 +31,33 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2 )
 count_x = 4
 count_y = 5
 
-[node name="floor3" parent="floor" index="21" instance=ExtResource( 2 )]
+[node name="floor3" parent="floor" index="1" instance=ExtResource( 2 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 0 )
 count_x = 2
 
-[node name="floor2" parent="floor" index="22" instance=ExtResource( 2 )]
+[node name="floor2" parent="floor" index="2" instance=ExtResource( 2 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3 )
 count_x = 4
 count_y = 2
 
-[node name="big_door1" type="MeshInstance" parent="." index="1"]
+[node name="big_door1" type="StaticBody" parent="." index="1" instance=ExtResource( 3 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2 )
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = ExtResource( 3 )
-skeleton = NodePath("..")
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-material/5 = null
-material/6 = null
-material/7 = null
-material/8 = null
-material/9 = null
-material/10 = null
-material/11 = null
-material/12 = null
-material/13 = null
-material/14 = null
-material/15 = null
-material/16 = null
-material/17 = null
-material/18 = null
-material/19 = null
-material/20 = null
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="big_door2" type="MeshInstance" parent="." index="2"]
+[node name="big_door2" parent="." index="2" instance=ExtResource( 3 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4, -2 )
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = ExtResource( 3 )
-skeleton = NodePath("..")
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-material/5 = null
-material/6 = null
-material/7 = null
-material/8 = null
-material/9 = null
-material/10 = null
-material/11 = null
-material/12 = null
-material/13 = null
-material/14 = null
-material/15 = null
-material/16 = null
-material/17 = null
-material/18 = null
-material/19 = null
-material/20 = null
 
 [node name="walls" parent="." index="3" instance=ExtResource( 4 )]
 
@@ -119,72 +65,72 @@ editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3 )
 count_x = 4
 
-[node name="wall6" parent="walls" index="5" instance=ExtResource( 4 )]
+[node name="wall6" parent="walls" index="1" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 count_x = 4
 
-[node name="wall11" parent="walls" index="6" instance=ExtResource( 4 )]
+[node name="wall11" parent="walls" index="2" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
 count_x = 4
 
-[node name="wall15" parent="walls" index="7" instance=ExtResource( 4 )]
+[node name="wall15" parent="walls" index="3" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -5 )
 count_x = 2
 
-[node name="wall17" parent="walls" index="8" instance=ExtResource( 4 )]
+[node name="wall17" parent="walls" index="4" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -5 )
 count_x = 2
 
-[node name="wall16" parent="walls" index="9" instance=ExtResource( 4 )]
+[node name="wall16" parent="walls" index="5" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -5 )
 count_x = 2
 
-[node name="wall4" parent="walls" index="10" instance=ExtResource( 4 )]
+[node name="wall4" parent="walls" index="6" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 0, -1 )
 count_x = 5
 
-[node name="wall8" parent="walls" index="11" instance=ExtResource( 4 )]
+[node name="wall8" parent="walls" index="7" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 2, -1 )
 count_x = 5
 
-[node name="wall12" parent="walls" index="12" instance=ExtResource( 4 )]
+[node name="wall12" parent="walls" index="8" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 4, -1 )
 count_x = 5
 
-[node name="wall9" parent="walls" index="13" instance=ExtResource( 4 )]
+[node name="wall9" parent="walls" index="9" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 2, 2, -3 )
 count_x = 3
 
-[node name="wall10" parent="walls" index="14" instance=ExtResource( 4 )]
+[node name="wall10" parent="walls" index="10" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 2, 0, -3 )
 count_x = 3
 
-[node name="wall14" parent="walls" index="15" instance=ExtResource( 4 )]
+[node name="wall14" parent="walls" index="11" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 2, 4, -3 )
 count_x = 3
 
-[node name="wall5" parent="walls" index="16" instance=ExtResource( 4 )]
+[node name="wall5" parent="walls" index="12" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 4, 0, -1 )
 count_x = 5
 
-[node name="wall7" parent="walls" index="17" instance=ExtResource( 4 )]
+[node name="wall7" parent="walls" index="13" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 4, 2, -1 )
 count_x = 5
 
-[node name="wall13" parent="walls" index="18" instance=ExtResource( 4 )]
+[node name="wall13" parent="walls" index="14" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 4, 4, -1 )
 count_x = 5
@@ -341,7 +287,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="StaticBody" type="StaticBody" parent="." index="14"]
 
-editor/display_folded = true
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -351,15 +296,15 @@ bounce = 0.0
 constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 
-[node name="Spatial" type="CollisionShape" parent="StaticBody" index="0"]
+[node name="stairs1" type="CollisionShape" parent="StaticBody" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.591551, -0.020313, -0.91833 )
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.591551, 0.649927, -0.24809 )
 shape = SubResource( 1 )
 disabled = false
 
-[node name="Spatial2" type="CollisionShape" parent="StaticBody" index="1"]
+[node name="stairs2" type="CollisionShape" parent="StaticBody" index="1"]
 
-transform = Transform( -1, 6.18172e-008, -6.18172e-008, 0, 0.707107, 0.707107, 8.74228e-008, 0.707107, -0.707107, 1.40845, 1.99464, -0.0976326 )
+transform = Transform( -1, 6.18172e-008, -6.18172e-008, 0, 0.707107, 0.707107, 8.74228e-008, 0.707107, -0.707107, 1.40845, 2.64834, -0.751332 )
 shape = SubResource( 1 )
 disabled = false
 

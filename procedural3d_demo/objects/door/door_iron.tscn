@@ -1,9 +1,72 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://procedural3d_demo/models/meshes/prop_wall_big_door_iron.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://procedural3d_demo/objects/door/door.gd" type="Script" id=1]
+[ext_resource path="res://procedural3d_demo/models/meshes/prop_wall_big_door_iron.tres" type="ArrayMesh" id=2]
 
-[node name="door_iron" type="MeshInstance" index="0"]
+[sub_resource type="Animation" id=1]
 
+resource_name = "open"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("hinge:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 118.118, 0 ), Vector3( 0, 118.118, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("closed_hitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+
+[sub_resource type="BoxShape" id=3]
+
+extents = Vector3( 0.802012, 0.716611, 0.481 )
+
+[sub_resource type="BoxShape" id=2]
+
+extents = Vector3( 0.42974, 0.716611, 0.101816 )
+
+[sub_resource type="BoxShape" id=4]
+
+extents = Vector3( 0.802012, 0.716611, 1.03173 )
+
+[node name="door_wood" type="StaticBody"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="hinge" type="Spatial" parent="." index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0971634, 0, -0.544792 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="door" type="MeshInstance" parent="hinge" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0971634, 0, 0.544792 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -13,8 +76,73 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = ExtResource( 1 )
+mesh = ExtResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/open = SubResource( 1 )
+blend_times = [ "open", "open", 0.5 ]
+
+[node name="closed_hitbox" type="CollisionShape" parent="." index="2"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.501583, 0.683234, -0.917996 )
+shape = SubResource( 3 )
+disabled = false
+
+[node name="open_hitbox" type="CollisionShape" parent="." index="3"]
+
+transform = Transform( -0.464668, 0, 0.885485, 0, 1, 0, -0.885485, 0, -0.464668, -0.0277085, 0.683234, -0.912447 )
+shape = SubResource( 2 )
+disabled = false
+
+[node name="detect_area" type="Area" parent="." index="4"]
+
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 1
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="detect_hitbox1" type="CollisionShape" parent="detect_area" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.501583, 0.683234, -0.917996 )
+shape = SubResource( 4 )
+disabled = false
+
+[node name="timer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+
+[connection signal="body_entered" from="detect_area" to="." method="_on_detect_area_body_entered"]
+
+[connection signal="body_exited" from="detect_area" to="." method="_on_detect_area_body_exited"]
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 
 
