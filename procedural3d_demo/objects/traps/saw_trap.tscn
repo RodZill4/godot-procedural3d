@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://procedural3d_demo/objects/traps/saw_trap.gd" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 3.5, 0.1, 2 )
+
+[node name="saw_trap" type="StaticBody"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 1 )
+count_x = 7
+count_y = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.100682, 1.5 )
+shape = SubResource( 1 )
+disabled = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="saws" type="Spatial" parent="." index="1"]
+
+

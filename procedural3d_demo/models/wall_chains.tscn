@@ -2,13 +2,13 @@
 
 [ext_resource path="res://procedural3d_demo/models/meshes/wall_chains.tres" type="ArrayMesh" id=1]
 
-[node name="wall_chains" type="Spatial" index="0"]
+[node name="wall_chains" type="Spatial"]
 
 _sections_unfolded = [ "Transform" ]
 
 [node name="Spatial" type="MeshInstance" parent="." index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.288731, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.273506, -0.288731, 0 )
 layers = 1
 material_override = null
 cast_shadow = 1

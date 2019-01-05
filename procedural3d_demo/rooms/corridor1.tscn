@@ -6,8 +6,6 @@
 [ext_resource path="res://addons/procedural3d/modular_room_exit.gd" type="Script" id=4]
 [ext_resource path="res://addons/procedural3d/modular_room_object.gd" type="Script" id=5]
 
-
-
 [sub_resource type="BoxShape" id=1]
 
 extents = Vector3( 1.01597, 1.16193, 4.61915 )
@@ -15,6 +13,7 @@ extents = Vector3( 1.01597, 1.16193, 4.61915 )
 [node name="corridor1" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
+probability = 1
 
 [node name="floor" parent="." index="0" instance=ExtResource( 2 )]
 

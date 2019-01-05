@@ -8,6 +8,7 @@ func _ready():
 	pass
 
 func generate(generator):
+	var room = get_parent()
 	#print("Choosing object for "+name)
 	if object_type == null:
 		return false
@@ -17,9 +18,9 @@ func generate(generator):
 	if objects.empty():
 		return false
 	if object != null:
-		get_parent().remove_child(object)
+		room.remove_child(object)
 		object.free()
-	object = objects[randi()%objects.size()].duplicate()
+	object = objects[randi()%objects.size()].duplicate(DUPLICATE_USE_INSTANCING)
 	object.transform = transform
-	get_parent().add_child(object)
+	room.add_child(object)
 	object.set_owner(generator.get_owner())

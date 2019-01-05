@@ -60,3 +60,4 @@ func kill():
 func _on_RespawnTimer_timeout():
 	transform = get_node("../Respawn").transform
 	set_physics_process(true)
+	dead = false

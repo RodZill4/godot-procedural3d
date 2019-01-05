@@ -9,6 +9,9 @@ const GENERATOR_SCRIPT = preload("res://addons/procedural3d/generator.gd")
 const EXIT_SCRIPT = preload("res://addons/procedural3d/modular_room_exit.gd")
 const OBJECT_SCRIPT = preload("res://addons/procedural3d/modular_room_object.gd")
 
+signal enter_room(body)
+signal leave_room(body)
+
 func _ready():
 	pass
 
@@ -18,7 +21,7 @@ func get_toolbar_buttons(tb = null):
 	return buttons
 
 func duplicate():
-	var rv = .duplicate()
+	var rv = .duplicate(DUPLICATE_USE_INSTANCING)
 	rv.model = name
 	return rv
 
@@ -51,3 +54,10 @@ func generate(undo_redo):
 	for c in get_children():
 		if c.get_script() == OBJECT_SCRIPT:
 			c.generate(generator)
+
+func _on_enter_room(body):
+	emit_signal("enter_room", body)
+
+func _on_leave_room(body):
+	emit_signal("leave_room", body)
+

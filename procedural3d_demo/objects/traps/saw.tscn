@@ -1,0 +1,154 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://procedural3d_demo/objects/traps/saw.gd" type="Script" id=1]
+[ext_resource path="res://procedural3d_demo/models/meshes/trap_floor_saw.tres" type="ArrayMesh" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 0.35, 0.35, 0.05 )
+
+[sub_resource type="Animation" id=2]
+
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("saw_position/saw_height/saw_center:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 360 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+length = 0.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("saw_position/saw_height:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, -0.6, 0 ), Vector3( 0.5, 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("anim_saw_rotate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop"
+}, {
+"args": [ "rotate" ],
+"method": "play"
+} ]
+}
+
+[node name="saw" type="Spatial"]
+
+script = ExtResource( 1 )
+
+[node name="saw_position" type="Spatial" parent="." index="0"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="saw_height" type="Area" parent="saw_position" index="0"]
+
+transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0.5, -0.6, 0 )
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 1
+collision_mask = 1
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="saw_center" type="Spatial" parent="saw_position/saw_height" index="0"]
+
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="saw" type="MeshInstance" parent="saw_position/saw_height/saw_center" index="0"]
+
+transform = Transform( -0.274228, 0.961663, 0, -0.961663, -0.274228, 0, 0, 0, 1, 0.0947446, -0.0232455, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 2 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="saw_position/saw_height" index="1"]
+
+shape = SubResource( 1 )
+disabled = false
+
+[node name="anim_saw_rotate" type="AnimationPlayer" parent="." index="1"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/rotate = SubResource( 2 )
+blend_times = [  ]
+
+[node name="anim_saw_updown" type="AnimationPlayer" parent="." index="2"]
+
+root_node = NodePath("..")
+autoplay = "activate"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/activate = SubResource( 3 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="anim_saw_leftright" type="Tween" parent="." index="3"]
+
+repeat = true
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = true
+playback/speed = 1.0
+
+[connection signal="body_entered" from="saw_position/saw_height" to="." method="_on_saw_body_entered"]
+
+

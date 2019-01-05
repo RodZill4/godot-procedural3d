@@ -126,7 +126,7 @@ angular_damp = 1.0
 priority = 0.0
 monitoring = true
 monitorable = true
-collision_layer = 524288
+collision_layer = 524290
 collision_mask = 524288
 audio_bus_override = false
 audio_bus_name = "Master"
@@ -142,5 +142,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.00193, -1.34919 )
 shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
+
+[connection signal="body_entered" from="space" to="." method="_on_enter_room"]
+
+[connection signal="body_exited" from="space" to="." method="_on_leave_room"]
 
 
