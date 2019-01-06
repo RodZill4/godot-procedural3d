@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://procedural3d_demo/models/wall_torch.gd" type="Script" id=1]
+[ext_resource path="res://procedural3d_demo/objects/torches/wall_torch.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/models/materials/Steel.tres" type="Material" id=2]
 [ext_resource path="res://procedural3d_demo/models/materials/Red_Wood.tres" type="Material" id=3]
 [ext_resource path="res://procedural3d_demo/models/materials/Iron.tres" type="Material" id=4]
@@ -163,7 +163,7 @@ radial_segments = 5
 rings = 2
 is_hemisphere = false
 
-[node name="wall_torch" type="Spatial" index="0"]
+[node name="wall_torch" type="Spatial"]
 
 script = ExtResource( 1 )
 

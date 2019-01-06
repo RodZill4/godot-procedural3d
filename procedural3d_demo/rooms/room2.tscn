@@ -105,7 +105,7 @@ object_type = "wall_decoration"
 
 [node name="wall_object4" type="Spatial" parent="." index="10"]
 
-transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -2.76874, 0, -5 )
 script = ExtResource( 6 )
 _sections_unfolded = [ "Transform" ]
 object_type = "wall_decoration"
@@ -152,12 +152,12 @@ monitorable = true
 collision_layer = 524288
 collision_mask = 524290
 audio_bus_override = false
-audio_bus_name = "Master"
+audio_bus_name = "Effects"
 reverb_bus_enable = false
-reverb_bus_name = "Master"
-reverb_bus_amount = 0.0
+reverb_bus_name = "Effects"
+reverb_bus_amount = 1.0
 reverb_bus_uniformity = 0.0
-_sections_unfolded = [ "Collision" ]
+_sections_unfolded = [ "Audio Bus", "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="space" index="0"]
 

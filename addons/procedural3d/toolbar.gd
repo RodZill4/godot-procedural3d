@@ -70,16 +70,16 @@ func join_rooms(r1, r2):
 			print("  - "+e.name+": "+str(e.get_global_transform().origin))
 	var exit1 = null
 	var exit2 = null
-	var best_distance = 10
+	var best_distance = 50
 	for e1 in r1.get_exits():
 		for e2 in r2.get_exits(e1.exit_type, !e1.inbound):
-			print(e2)
 			var distance = (e1.get_global_transform().origin - e2.get_global_transform().origin).length()
 			if distance < best_distance:
 				best_distance = distance
 				exit1 = e1
 				exit2 = e2
 	if exit1 != null and exit2 != null:
+		print("Joining "+exit1.get_parent().name+"."+exit1.name+" to "+exit2.get_parent().name+"."+exit2.name)
 		exit1.join(exit2)
 
 func _on_JoinRooms_pressed():

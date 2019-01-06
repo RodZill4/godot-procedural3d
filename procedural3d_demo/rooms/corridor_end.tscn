@@ -7,6 +7,7 @@
 [node name="corridor_end" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
+probability = 1
 
 [node name="wall" parent="." index="0" instance=ExtResource( 2 )]
 

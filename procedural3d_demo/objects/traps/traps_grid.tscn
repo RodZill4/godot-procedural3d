@@ -6,7 +6,7 @@
 
 extents = Vector3( 3, 0.1, 2 )
 
-[node name="traps_grid" type="StaticBody" index="0"]
+[node name="traps_grid" type="StaticBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -18,8 +18,9 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-count_x = 6
-count_y = 4
+trap_scene = null
+count_x = 1
+count_y = 1
 
 [node name="traps" type="Spatial" parent="." index="0"]
 
@@ -28,9 +29,9 @@ editor/display_folded = true
 [node name="Timer" type="Timer" parent="." index="1"]
 
 process_mode = 1
-wait_time = 7.0
+wait_time = 5.0
 one_shot = false
-autostart = true
+autostart = false
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="2"]
 

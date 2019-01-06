@@ -11,6 +11,7 @@ func has_nonstatic_overlapping_bodies(exited_body = null):
 func _on_detect_area_body_entered(body):
 	if has_nonstatic_overlapping_bodies():
 		if !open:
+			$sound.play()
 			$AnimationPlayer.play("open")
 		$timer.stop()
 		open = true
@@ -20,5 +21,6 @@ func _on_detect_area_body_exited(body):
 		$timer.start()
 
 func _on_timer_timeout():
-	$AnimationPlayer.play("open", -1, -1, true)
+	$AnimationPlayer.play_backwards("open")
+	$sound.play()
 	open = false
