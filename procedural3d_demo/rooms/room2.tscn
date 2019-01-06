@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://addons/procedural3d/modular_room.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/models/floor.tscn" type="PackedScene" id=2]
@@ -7,14 +7,76 @@
 [ext_resource path="res://addons/procedural3d/modular_room_exit.gd" type="Script" id=5]
 [ext_resource path="res://addons/procedural3d/modular_room_object.gd" type="Script" id=6]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 2.9411, 1.16193, 3.92735 )
+
+[sub_resource type="SpatialMaterial" id=2]
+
+render_priority = 0
+flags_transparent = true
+flags_unshaded = true
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0.921875, 1, 0, 0.254157 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Flags", "Parameters" ]
+
+[sub_resource type="CubeMesh" id=4]
+
+material = SubResource( 2 )
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+size = Vector3( 6, 2, 8 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
 
 [node name="room_traps" type="Spatial"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+is_room = true
 probability = 1
 
 [node name="floor1" parent="." index="0" instance=ExtResource( 2 )]
@@ -162,8 +224,26 @@ _sections_unfolded = [ "Audio Bus", "Collision" ]
 [node name="CollisionShape" type="CollisionShape" parent="space" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.00193, -1.34919 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 disabled = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="map" type="MeshInstance" parent="." index="16"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -1.5 )
+visible = false
+layers = 2
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 4 )
+skeleton = NodePath("..")
+material/0 = null
 _sections_unfolded = [ "Transform" ]
 
 [connection signal="body_entered" from="space" to="." method="_on_enter_room"]

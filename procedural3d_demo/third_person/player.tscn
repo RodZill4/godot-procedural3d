@@ -8,7 +8,7 @@
 radius = 0.162409
 height = 0.766036
 
-[node name="Player" type="KinematicBody" index="0"]
+[node name="Player" type="KinematicBody"]
 
 input_ray_pickable = false
 input_capture_on_drag = false

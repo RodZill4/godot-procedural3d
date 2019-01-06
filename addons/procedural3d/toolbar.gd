@@ -1,7 +1,6 @@
 tool
 extends HBoxContainer
 
-var plugin = null
 var edited_object = null
 
 var joined_room = null
@@ -96,8 +95,8 @@ func _on_Clean_pressed():
 	edited_object.clean()
 
 func _on_Generate_pressed():
-	edited_object.generate(plugin.get_undo_redo())
+	edited_object.generate()
 
 func on_SceneButton_pressed(function):
-	edited_object.call(function, plugin.get_undo_redo())
+	edited_object.call(function)
 	update_buttons()

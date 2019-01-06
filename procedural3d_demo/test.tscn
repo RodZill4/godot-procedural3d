@@ -1,15 +1,15 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://addons/procedural3d/generator.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/rooms/room1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://procedural3d_demo/rooms/corridor_joint.tscn" type="PackedScene" id=3]
+[ext_resource path="res://procedural3d_demo/rooms/room2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://procedural3d_demo/rooms/corridor1.tscn" type="PackedScene" id=4]
 [ext_resource path="res://procedural3d_demo/rooms/corridor2.tscn" type="PackedScene" id=5]
 [ext_resource path="res://procedural3d_demo/rooms/corridor3.tscn" type="PackedScene" id=6]
 [ext_resource path="res://procedural3d_demo/rooms/corridor4.tscn" type="PackedScene" id=7]
-[ext_resource path="res://procedural3d_demo/rooms/stairs.tscn" type="PackedScene" id=8]
+[ext_resource path="res://procedural3d_demo/rooms/corridor_joint.tscn" type="PackedScene" id=8]
 [ext_resource path="res://procedural3d_demo/rooms/corridor_end.tscn" type="PackedScene" id=9]
-[ext_resource path="res://procedural3d_demo/rooms/room2.tscn" type="PackedScene" id=10]
+[ext_resource path="res://procedural3d_demo/rooms/stairs.tscn" type="PackedScene" id=10]
 [ext_resource path="res://procedural3d_demo/objects/crates/barrels.tscn" type="PackedScene" id=11]
 [ext_resource path="res://procedural3d_demo/objects/crates/crates.tscn" type="PackedScene" id=12]
 [ext_resource path="res://procedural3d_demo/objects/door/door_iron.tscn" type="PackedScene" id=13]
@@ -20,8 +20,74 @@
 [ext_resource path="res://procedural3d_demo/objects/traps/traps_grid.tscn" type="PackedScene" id=18]
 [ext_resource path="res://procedural3d_demo/objects/traps/spike_trap.tscn" type="PackedScene" id=19]
 [ext_resource path="res://procedural3d_demo/objects/traps/fire_trap.tscn" type="PackedScene" id=20]
-[ext_resource path="res://procedural3d_demo/third_person/player.tscn" type="PackedScene" id=21]
-[ext_resource path="res://procedural3d_demo/third_person/camera.tscn" type="PackedScene" id=22]
+[ext_resource path="res://addons/procedural3d/modular_room.gd" type="Script" id=21]
+[ext_resource path="res://procedural3d_demo/objects/door/door.gd" type="Script" id=22]
+[ext_resource path="res://procedural3d_demo/objects/torches/wall_torch.gd" type="Script" id=23]
+[ext_resource path="res://procedural3d_demo/objects/traps/traps_grid.gd" type="Script" id=24]
+[ext_resource path="res://procedural3d_demo/third_person/player.tscn" type="PackedScene" id=25]
+[ext_resource path="res://procedural3d_demo/third_person/camera.tscn" type="PackedScene" id=26]
+
+[sub_resource type="SpatialMaterial" id=4]
+
+render_priority = 0
+flags_transparent = false
+flags_unshaded = true
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 1, 0, 0, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Flags" ]
+
+[sub_resource type="PrismMesh" id=3]
+
+material = SubResource( 4 )
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+left_to_right = 0.5
+size = Vector3( 2, 2, 0.5 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -151,16 +217,15 @@ directional_shadow_normal_bias = 0.8
 directional_shadow_bias_split_scale = 0.25
 directional_shadow_depth_range = 0
 directional_shadow_max_distance = 200.0
-_sections_unfolded = [ "Shadow" ]
 
 [node name="DungeonGenerator" type="Spatial" parent="." index="1"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+min_room_count = 4
 
 [node name="rooms" type="Spatial" parent="DungeonGenerator" index="0"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -36, 0 )
 visible = false
 
@@ -168,34 +233,44 @@ visible = false
 
 probability = 3
 
-[node name="corridor_joint" parent="DungeonGenerator/rooms" index="1" instance=ExtResource( 3 )]
+[node name="room_traps" parent="DungeonGenerator/rooms" index="1" instance=ExtResource( 3 )]
 
-transform = Transform( -1, 0, 8.74227e-008, 0, 1, 0, -8.74227e-008, 0, -1, 3, 5, -1 )
-probability = 3
+probability = 2
 
 [node name="corridor1" parent="DungeonGenerator/rooms" index="2" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 9 )
+is_room = false
 probability = 2
 
 [node name="corridor2" parent="DungeonGenerator/rooms" index="3" instance=ExtResource( 5 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 10 )
+is_room = false
 probability = 2
 
 [node name="corridor3" parent="DungeonGenerator/rooms" index="4" instance=ExtResource( 6 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 9 )
+is_room = false
 
 [node name="corridor4" parent="DungeonGenerator/rooms" index="5" instance=ExtResource( 7 )]
 
-[node name="stairs" parent="DungeonGenerator/rooms" index="6" instance=ExtResource( 8 )]
+is_room = false
+
+[node name="corridor_joint" parent="DungeonGenerator/rooms" index="6" instance=ExtResource( 8 )]
+
+transform = Transform( -1, 0, 8.74227e-008, 0, 1, 0, -8.74227e-008, 0, -1, 3, 5, -1 )
+is_room = false
+probability = 3
 
 [node name="corridor_end" parent="DungeonGenerator/rooms" index="7" instance=ExtResource( 9 )]
 
-[node name="room_traps" parent="DungeonGenerator/rooms" index="8" instance=ExtResource( 10 )]
+is_room = false
 
-probability = 2
+[node name="stairs" parent="DungeonGenerator/rooms" index="8" instance=ExtResource( 10 )]
+
+is_room = false
 
 [node name="objects" type="Spatial" parent="DungeonGenerator" index="1"]
 
@@ -248,14 +323,614 @@ trap_scene = ExtResource( 20 )
 count_x = 6
 count_y = 4
 
-[node name="Player" parent="." index="2" instance=ExtResource( 21 )]
+[node name="generated" type="Spatial" parent="DungeonGenerator" index="2"]
 
-transform = Transform( 0.0153652, 0, 0.999882, 0, 1, 0, -0.999882, 0, 0.0153652, 0, 0, 0 )
+[node name="room_start" type="Spatial" parent="DungeonGenerator/generated" index="0" instance=ExtResource( 2 )]
+
+editor/display_folded = true
+script = ExtResource( 21 )
+_sections_unfolded = [ "Transform" ]
+is_room = true
+probability = 3
+
+[node name="door_iron" type="StaticBody" parent="DungeonGenerator/generated/room_start" index="15" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start" index="16" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start" index="17" instance=ExtResource( 16 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start" index="18" instance=ExtResource( 15 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+script = ExtResource( 23 )
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start" index="19" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start" index="20" instance=ExtResource( 16 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start" index="21" instance=ExtResource( 11 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="barrels2" type="Spatial" parent="DungeonGenerator/generated/room_start" index="22" instance=ExtResource( 11 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="corridor2" type="Spatial" parent="DungeonGenerator/generated" index="1" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 2, 0, -9 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="corridor_joint" type="Spatial" parent="DungeonGenerator/generated" index="2" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( -4.37113e-008, 0, -1, 0, 1, 0, 1, 0, -4.37113e-008, 4, 0, -11 )
+script = ExtResource( 21 )
+is_room = false
+probability = 3
+
+[node name="corridor1" type="Spatial" parent="DungeonGenerator/generated" index="3" instance=ExtResource( 4 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 10, 0, -11 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/corridor1" index="9" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, -3 )
+script = ExtResource( 23 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/corridor1" index="10" instance=ExtResource( 15 )]
+
+transform = Transform( -5.21541e-008, 0, 1, 0, 1, 0, -1, 0, -5.21541e-008, -1, 0, 3 )
+script = ExtResource( 23 )
+
+[node name="corridor_joint2" type="Spatial" parent="DungeonGenerator/generated" index="4" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 15, 0, -10 )
+script = ExtResource( 21 )
+is_room = false
+probability = 3
+
+[node name="corridor3" type="Spatial" parent="DungeonGenerator/generated" index="5" instance=ExtResource( 4 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 20, 0, -11 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/corridor3" index="9" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, -3 )
+script = ExtResource( 23 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/corridor3" index="10" instance=ExtResource( 15 )]
+
+transform = Transform( -5.21541e-008, 0, 1, 0, 1, 0, -1, 0, -5.21541e-008, -1, 0, 3 )
+script = ExtResource( 23 )
+
+[node name="corridor_joint3" type="Spatial" parent="DungeonGenerator/generated" index="6" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( -2.18557e-007, 0, -1, 0, 1, 0, 1, 0, -2.18557e-007, 24, 0, -11 )
+script = ExtResource( 21 )
+is_room = false
+probability = 3
+
+[node name="corridor4" type="Spatial" parent="DungeonGenerator/generated" index="7" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, 28, 0, -8 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="room_traps" type="Spatial" parent="DungeonGenerator/generated" index="8" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( -1, 0, 2.62268e-007, 0, 1, 0, -2.62268e-007, 0, -1, 29, 0, -3 )
+script = ExtResource( 21 )
+_sections_unfolded = [ "Transform" ]
+is_room = true
+probability = 2
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_traps" index="17" instance=ExtResource( 16 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_traps" index="18" instance=ExtResource( 16 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 2, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_traps" index="19" instance=ExtResource( 15 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, -2, 0, 2 )
+script = ExtResource( 23 )
+
+[node name="wall_chains3" type="Spatial" parent="DungeonGenerator/generated/room_traps" index="20" instance=ExtResource( 16 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -2.76874, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_traps" index="21" instance=ExtResource( 15 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -3, 0, -2 )
+script = ExtResource( 23 )
+
+[node name="door_wood" type="StaticBody" parent="DungeonGenerator/generated/room_traps" index="22" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="door_iron" type="StaticBody" parent="DungeonGenerator/generated/room_traps" index="23" instance=ExtResource( 13 )]
+
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0, 0, 2 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="fire_traps" type="StaticBody" parent="DungeonGenerator/generated/room_traps" index="24" instance=ExtResource( 18 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 24 )
+_sections_unfolded = [ "Transform" ]
+trap_scene = ExtResource( 20 )
+count_x = 6
+count_y = 4
+
+[node name="corridor5" type="Spatial" parent="DungeonGenerator/generated" index="9" instance=ExtResource( 6 )]
+
+editor/display_folded = true
+transform = Transform( -2.18557e-007, 0, -1, 0, 1, 0, 1, 0, -2.18557e-007, 29, 0, 8 )
+script = ExtResource( 21 )
+is_room = false
+probability = 1
+
+[node name="room_traps2" type="Spatial" parent="DungeonGenerator/generated" index="10" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( -2.18557e-007, 0, -1, 0, 1, 0, 1, 0, -2.18557e-007, 19, 0, 8 )
+script = ExtResource( 21 )
+_sections_unfolded = [ "Transform" ]
+is_room = true
+probability = 2
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_traps2" index="17" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_traps2" index="18" instance=ExtResource( 16 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 2, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_traps2" index="19" instance=ExtResource( 16 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, -2, 0, 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_traps2" index="20" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -2.76874, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_chains3" type="Spatial" parent="DungeonGenerator/generated/room_traps2" index="21" instance=ExtResource( 16 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -3, 0, -2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="door_wood" type="StaticBody" parent="DungeonGenerator/generated/room_traps2" index="22" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="door_wood2" type="StaticBody" parent="DungeonGenerator/generated/room_traps2" index="23" instance=ExtResource( 14 )]
+
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0, 0, 2 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="spike_traps" type="StaticBody" parent="DungeonGenerator/generated/room_traps2" index="24" instance=ExtResource( 18 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 24 )
+_sections_unfolded = [ "Transform" ]
+trap_scene = ExtResource( 19 )
+count_x = 6
+count_y = 4
+
+[node name="corridor_end" type="Spatial" parent="DungeonGenerator/generated" index="11" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 35, 0, 8.00001 )
+script = ExtResource( 21 )
+is_room = false
+probability = 1
+
+[node name="room_start2" type="Spatial" parent="DungeonGenerator/generated" index="12" instance=ExtResource( 2 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, 30, 0, 18 )
+script = ExtResource( 21 )
+_sections_unfolded = [ "Transform" ]
+is_room = true
+probability = 3
+
+[node name="door_wood" type="StaticBody" parent="DungeonGenerator/generated/room_start2" index="15" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="16" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="17" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+script = ExtResource( 23 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="18" instance=ExtResource( 16 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="19" instance=ExtResource( 16 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="20" instance=ExtResource( 15 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+script = ExtResource( 23 )
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="21" instance=ExtResource( 11 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/generated/room_start2" index="22" instance=ExtResource( 12 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="corridor6" type="Spatial" parent="DungeonGenerator/generated" index="13" instance=ExtResource( 4 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 12, 0, 7 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/corridor6" index="9" instance=ExtResource( 16 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/corridor6" index="10" instance=ExtResource( 15 )]
+
+transform = Transform( -5.21541e-008, 0, 1, 0, 1, 0, -1, 0, -5.21541e-008, -1, 0, 3 )
+script = ExtResource( 23 )
+
+[node name="room_traps3" type="Spatial" parent="DungeonGenerator/generated" index="14" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, 4, 0, 7 )
+script = ExtResource( 21 )
+_sections_unfolded = [ "Transform" ]
+is_room = true
+probability = 2
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_traps3" index="17" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_traps3" index="18" instance=ExtResource( 15 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 2, 0, -3 )
+script = ExtResource( 23 )
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_traps3" index="19" instance=ExtResource( 16 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, -2, 0, 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_traps3" index="20" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -2.76874, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_torch4" type="Spatial" parent="DungeonGenerator/generated/room_traps3" index="21" instance=ExtResource( 15 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -3, 0, -2 )
+script = ExtResource( 23 )
+
+[node name="door_wood" type="StaticBody" parent="DungeonGenerator/generated/room_traps3" index="22" instance=ExtResource( 14 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="door_iron" type="StaticBody" parent="DungeonGenerator/generated/room_traps3" index="23" instance=ExtResource( 13 )]
+
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0, 0, 2 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="spike_traps" type="StaticBody" parent="DungeonGenerator/generated/room_traps3" index="24" instance=ExtResource( 18 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 24 )
+_sections_unfolded = [ "Transform" ]
+trap_scene = ExtResource( 19 )
+count_x = 6
+count_y = 4
+
+[node name="corridor7" type="Spatial" parent="DungeonGenerator/generated" index="15" instance=ExtResource( 7 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, -6, 0, 7 )
+script = ExtResource( 21 )
+is_room = false
+probability = 1
+
+[node name="room_start3" type="Spatial" parent="DungeonGenerator/generated" index="16" instance=ExtResource( 2 )]
+
+editor/display_folded = true
+transform = Transform( -4.37113e-008, 0, -1, 0, 1, 0, 1, 0, -4.37113e-008, -17, 0, 8 )
+script = ExtResource( 21 )
+_sections_unfolded = [ "Transform" ]
+is_room = true
+probability = 3
+
+[node name="door_iron" type="StaticBody" parent="DungeonGenerator/generated/room_start3" index="15" instance=ExtResource( 13 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+script = ExtResource( 22 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="16" instance=ExtResource( 16 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="17" instance=ExtResource( 16 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_torch" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="18" instance=ExtResource( 15 )]
+
+transform = Transform( -1, 0, 1.50996e-007, 0, 1, 0, -1.50996e-007, 0, -1, 0, 0, 2 )
+script = ExtResource( 23 )
+
+[node name="wall_torch2" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="19" instance=ExtResource( 15 )]
+
+transform = Transform( 1, 0, 5.56363e-008, 0, 1, 0, -5.56363e-008, 0, 1, -3, 0, -5 )
+script = ExtResource( 23 )
+
+[node name="wall_torch3" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="20" instance=ExtResource( 15 )]
+
+transform = Transform( 7.54979e-008, 0, 1, 0, 1, 0, -1, 0, 7.54979e-008, -4, 0, -2 )
+script = ExtResource( 23 )
+
+[node name="barrels" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="21" instance=ExtResource( 11 )]
+
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 1.91095, 0, 1.219 )
+
+[node name="crates" type="Spatial" parent="DungeonGenerator/generated/room_start3" index="22" instance=ExtResource( 12 )]
+
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, -3.08905, 0, 1.219 )
+
+[node name="corridor_joint4" type="Spatial" parent="DungeonGenerator/generated" index="17" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, -7, 0, 3 )
+script = ExtResource( 21 )
+is_room = false
+probability = 3
+
+[node name="corridor8" type="Spatial" parent="DungeonGenerator/generated" index="18" instance=ExtResource( 4 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, -6, 0, -2 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="wall_chains" type="Spatial" parent="DungeonGenerator/generated/corridor8" index="9" instance=ExtResource( 16 )]
+
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, -3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="wall_chains2" type="Spatial" parent="DungeonGenerator/generated/corridor8" index="10" instance=ExtResource( 16 )]
+
+transform = Transform( -5.21541e-008, 0, 1, 0, 1, 0, -1, 0, -5.21541e-008, -1, 0, 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="corridor_joint5" type="Spatial" parent="DungeonGenerator/generated" index="19" instance=ExtResource( 8 )]
+
+editor/display_folded = true
+transform = Transform( 1, 0, -1.74845e-007, 0, 1, 0, 1.74845e-007, 0, 1, -7, 0, -7 )
+script = ExtResource( 21 )
+is_room = false
+probability = 3
+
+[node name="corridor9" type="Spatial" parent="DungeonGenerator/generated" index="20" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, -4, 0, -11 )
+script = ExtResource( 21 )
+is_room = false
+probability = 2
+
+[node name="corridor_end2" type="Spatial" parent="DungeonGenerator/generated" index="21" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+transform = Transform( 1.31134e-007, 0, 1, 0, 1, 0, -1, 0, 1.31134e-007, -1, 0, -12 )
+script = ExtResource( 21 )
+is_room = false
+probability = 1
+
+[node name="Player" parent="." index="2" instance=ExtResource( 25 )]
+
 run_speed = 5.0
 
-[node name="Camera" parent="." index="3" instance=ExtResource( 22 )]
+[node name="Spatial" type="RemoteTransform" parent="Player" index="3"]
+
+remote_path = NodePath("../../CanvasLayer/ViewportContainer/Viewport/PlayerPos")
+use_global_coordinates = true
+update_position = true
+update_rotation = true
+update_scale = true
+_sections_unfolded = [ "Transform", "Update" ]
+
+[node name="MeshInstance" type="MeshInstance" parent="Player" index="4"]
+
+transform = Transform( 1, -4.37114e-008, 4.37114e-008, 4.37114e-008, -4.37114e-008, -1, 4.37114e-008, 1, -4.37114e-008, 0, 0.477271, 0 )
+layers = 2
+material_override = null
+cast_shadow = 0
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 3 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "Geometry" ]
+
+[node name="Camera" parent="." index="3" instance=ExtResource( 26 )]
 
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 1.5, 1.69166 )
+cull_mask = 1
 environment = SubResource( 2 )
 near = 0.2
 far = 100.0
@@ -280,9 +955,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -11 )
 
 transform = Transform( 0.777179, 0.440531, -0.449362, 6.39488e-014, 0.714089, 0.700055, 0.62928, -0.544067, 0.554975, -2.52166, -2.24121, -4.266 )
 
-[node name="corridor_joint" parent="JoinTest" index="2" instance=ExtResource( 3 )]
+[node name="corridor_joint" parent="JoinTest" index="2" instance=ExtResource( 8 )]
 
 transform = Transform( 0.777179, 0.440531, -0.449362, 6.39488e-014, 0.714089, 0.700055, 0.62928, -0.544067, 0.554975, -11.1898, 11.2009, -2.1204 )
+is_room = true
 probability = 1
 
 [node name="corridor2" parent="JoinTest" index="3" instance=ExtResource( 4 )]
@@ -292,5 +968,85 @@ transform = Transform( 0.777179, 0.440531, -0.449362, 1.35003e-013, 0.714089, 0.
 [node name="room2" parent="JoinTest" index="4" instance=ExtResource( 2 )]
 
 transform = Transform( 0.777179, 0.440531, -0.449362, 1.35003e-013, 0.714089, 0.700055, 0.62928, -0.544067, 0.554975, -3.71417, -0.234163, -14.3597 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="CanvasLayer" index="0"]
+
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch = true
+stretch_shrink = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="Viewport" type="Viewport" parent="CanvasLayer/ViewportContainer" index="0"]
+
+arvr = false
+size = Vector2( 200, 200 )
+own_world = false
+world = null
+transparent_bg = false
+msaa = 0
+hdr = true
+disable_3d = false
+usage = 2
+debug_draw = 0
+render_target_v_flip = false
+render_target_clear_mode = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = false
+audio_listener_enable_3d = false
+physics_object_picking = false
+gui_disable_input = false
+gui_snap_controls_to_pixels = true
+shadow_atlas_size = 0
+shadow_atlas_quad_0 = 2
+shadow_atlas_quad_1 = 2
+shadow_atlas_quad_2 = 3
+shadow_atlas_quad_3 = 4
+_sections_unfolded = [ "Render Target", "Rendering" ]
+
+[node name="Camera" type="InterpolatedCamera" parent="CanvasLayer/ViewportContainer/Viewport" index="0"]
+
+transform = Transform( -1, 6.06767e-008, -6.29376e-008, -9.9476e-014, 0.719919, 0.694059, 8.74232e-008, 0.694059, -0.719918, 0, 7.79877, -6.10558 )
+keep_aspect = 1
+cull_mask = 2
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+doppler_tracking = 0
+projection = 0
+current = true
+fov = 70.0
+size = 1.0
+near = 0.05
+far = 100.0
+target = NodePath("../PlayerPos/CameraPos")
+speed = 1.0
+enabled = true
+
+[node name="PlayerPos" type="Spatial" parent="CanvasLayer/ViewportContainer/Viewport" index="1"]
+
+[node name="CameraPos" type="Spatial" parent="CanvasLayer/ViewportContainer/Viewport/PlayerPos" index="0"]
+
+transform = Transform( -1, 6.06764e-008, -6.29374e-008, 0, 0.719919, 0.694058, 8.74228e-008, 0.694058, -0.719919, 0, 7.79877, -6.10558 )
+_sections_unfolded = [ "Transform" ]
 
 

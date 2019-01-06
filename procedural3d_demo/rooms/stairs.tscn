@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://addons/procedural3d/modular_room.gd" type="Script" id=1]
 [ext_resource path="res://procedural3d_demo/models/floor.tscn" type="PackedScene" id=2]
@@ -13,18 +13,79 @@
 [ext_resource path="res://procedural3d_demo/models/meshes/struct_wall_straight_base.tres" type="ArrayMesh" id=11]
 [ext_resource path="res://procedural3d_demo/models/materials/Grey.tres" type="Material" id=12]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 1, 0.416568, 1.48643 )
 
-[sub_resource type="BoxShape" id=2]
-
-extents = Vector3( 2.06319, 2.94491, 2.29616 )
-
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=4]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector3( 0.3, 6, 0.3 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
+
+[sub_resource type="BoxShape" id=5]
+
+extents = Vector3( 2.06319, 2.94491, 2.29616 )
+
+[sub_resource type="SpatialMaterial" id=2]
+
+render_priority = 0
+flags_transparent = true
+flags_unshaded = true
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 0.921875, 1, 0, 0.254157 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Flags", "Parameters" ]
+
+[sub_resource type="CubeMesh" id=6]
+
+material = SubResource( 2 )
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+size = Vector3( 4, 6, 5 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
@@ -33,6 +94,7 @@ subdivide_depth = 0
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+is_room = true
 probability = 1
 
 [node name="floor" parent="." index="0" instance=ExtResource( 2 )]
@@ -153,6 +215,7 @@ inbound = false
 
 [node name="struct_large_straight_steps1" type="MeshInstance" parent="." index="6"]
 
+editor/display_folded = true
 transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, -0.5, 0, -1 )
 layers = 1
 material_override = null
@@ -168,9 +231,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps2" type="MeshInstance" parent="." index="7"]
+[node name="struct_large_straight_steps2" type="MeshInstance" parent="struct_large_straight_steps1" index="0"]
 
-transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0.5, 0, -1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5.96046e-008 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -185,9 +248,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps5" type="MeshInstance" parent="." index="8"]
+[node name="struct_large_straight_steps5" type="MeshInstance" parent="struct_large_straight_steps1" index="1"]
 
-transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, -0.5, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9407e-008, 1, -1 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -202,9 +265,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps6" type="MeshInstance" parent="." index="9"]
+[node name="struct_large_straight_steps6" type="MeshInstance" parent="struct_large_straight_steps1" index="2"]
 
-transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0.5, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -219,9 +282,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps3" type="MeshInstance" parent="." index="10"]
+[node name="struct_large_straight_steps3" type="MeshInstance" parent="struct_large_straight_steps1" index="3"]
 
-transform = Transform( 1, 0, 1.74846e-007, 0, 1, 0, -1.74846e-007, 0, 1, 1.5, 3, -1 )
+transform = Transform( -1, 0, -8.74232e-008, 0, 1, 0, 8.74232e-008, 0, -1, -2, 3, -1.19209e-007 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -236,9 +299,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps8" type="MeshInstance" parent="." index="11"]
+[node name="struct_large_straight_steps8" type="MeshInstance" parent="struct_large_straight_steps1" index="4"]
 
-transform = Transform( 1, 0, 1.74846e-007, 0, 1, 0, -1.74846e-007, 0, 1, 1.5, 2, 0 )
+transform = Transform( -1, 0, -8.74232e-008, 0, 1, 0, 8.74232e-008, 0, -1, -2, 2, -1 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -253,9 +316,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps4" type="MeshInstance" parent="." index="12"]
+[node name="struct_large_straight_steps4" type="MeshInstance" parent="struct_large_straight_steps1" index="5"]
 
-transform = Transform( 1, 0, 1.74846e-007, 0, 1, 0, -1.74846e-007, 0, 1, 0.5, 3, -1 )
+transform = Transform( -1, 0, -8.74232e-008, 0, 1, 0, 8.74232e-008, 0, -1, -1, 3, -5.96046e-008 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -270,9 +333,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="struct_large_straight_steps7" type="MeshInstance" parent="." index="13"]
+[node name="struct_large_straight_steps7" type="MeshInstance" parent="struct_large_straight_steps1" index="6"]
 
-transform = Transform( 1, 0, 1.74846e-007, 0, 1, 0, -1.74846e-007, 0, 1, 0.5, 2, 0 )
+transform = Transform( -1, 0, -8.74232e-008, 0, 1, 0, 8.74232e-008, 0, -1, -1, 2, -1 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -287,8 +350,9 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="StaticBody" type="StaticBody" parent="." index="14"]
+[node name="StaticBody" type="StaticBody" parent="." index="7"]
 
+editor/display_folded = true
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -301,48 +365,16 @@ constant_angular_velocity = Vector3( 0, 0, 0 )
 [node name="stairs1" type="CollisionShape" parent="StaticBody" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.591551, 0.649927, -0.24809 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 disabled = false
 
 [node name="stairs2" type="CollisionShape" parent="StaticBody" index="1"]
 
 transform = Transform( -1, 6.18172e-008, -6.18172e-008, 0, 0.707107, 0.707107, 8.74228e-008, 0.707107, -0.707107, 1.40845, 2.64834, -0.751332 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 disabled = false
 
-[node name="space" type="Area" parent="." index="15"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.630433, 2.83281, 0 )
-input_ray_pickable = false
-input_capture_on_drag = false
-space_override = 0
-gravity_point = false
-gravity_distance_scale = 0.0
-gravity_vec = Vector3( 0, -1, 0 )
-gravity = 9.8
-linear_damp = 0.1
-angular_damp = 1.0
-priority = 0.0
-monitoring = true
-monitorable = true
-collision_layer = 524288
-collision_mask = 524288
-audio_bus_override = false
-audio_bus_name = "Master"
-reverb_bus_enable = false
-reverb_bus_name = "Master"
-reverb_bus_amount = 0.0
-reverb_bus_uniformity = 0.0
-_sections_unfolded = [ "Collision" ]
-
-[node name="CollisionShape" type="CollisionShape" parent="space" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.120988, 0.240704, 0.0141954 )
-shape = SubResource( 2 )
-disabled = false
-_sections_unfolded = [ "Transform" ]
-
-[node name="struct_pillar_angled_base" type="MeshInstance" parent="." index="16"]
+[node name="struct_pillar_angled_base" type="MeshInstance" parent="." index="8"]
 
 editor/display_folded = true
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.224765, 0.994981, 0.463489 )
@@ -454,9 +486,9 @@ mesh = ExtResource( 9 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="struct_wall_straight_main" type="MeshInstance" parent="." index="17"]
+[node name="struct_wall_straight_main" type="MeshInstance" parent="struct_pillar_angled_base" index="6"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, -2 )
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.19378, 2.00502, -2.29012 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -470,9 +502,9 @@ mesh = ExtResource( 10 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="struct_wall_straight_main2" type="MeshInstance" parent="." index="18"]
+[node name="struct_wall_straight_main2" type="MeshInstance" parent="struct_pillar_angled_base" index="7"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -2 )
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.486669, 2.00502, -2.99723 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -486,9 +518,9 @@ mesh = ExtResource( 10 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="struct_wall_straight_main3" type="MeshInstance" parent="." index="19"]
+[node name="struct_wall_straight_main3" type="MeshInstance" parent="struct_pillar_angled_base" index="8"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -2 )
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.486669, 1.00502, -2.99723 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -502,9 +534,9 @@ mesh = ExtResource( 10 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="struct_wall_straight_main4" type="MeshInstance" parent="." index="20"]
+[node name="struct_wall_straight_main4" type="MeshInstance" parent="struct_pillar_angled_base" index="9"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -2 )
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.19378, 1.00502, -2.29012 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -518,9 +550,9 @@ mesh = ExtResource( 10 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="struct_wall_straight_base" type="MeshInstance" parent="." index="21"]
+[node name="struct_wall_straight_base" type="MeshInstance" parent="struct_pillar_angled_base" index="10"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -2 )
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.19378, 1.00502, -2.29012 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -534,9 +566,9 @@ mesh = ExtResource( 11 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="struct_wall_straight_base2" type="MeshInstance" parent="." index="22"]
+[node name="struct_wall_straight_base2" type="MeshInstance" parent="struct_pillar_angled_base" index="11"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -2 )
+transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.486669, 1.00502, -2.99723 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -550,12 +582,12 @@ mesh = ExtResource( 11 )
 skeleton = NodePath("..")
 material/0 = null
 
-[node name="Spatial" type="Spatial" parent="." index="23"]
+[node name="corners" type="Spatial" parent="." index="9"]
 
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Spatial" index="0"]
+[node name="MeshInstance1" type="MeshInstance" parent="corners" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 3, 0.4 )
 layers = 1
@@ -567,19 +599,14 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="Spatial2" type="Spatial" parent="." index="24"]
+[node name="MeshInstance2" type="MeshInstance" parent="corners" index="1"]
 
-editor/display_folded = true
-transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, -2, 0, 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Spatial2" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 3, 0.4 )
+transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0.4, 3, 5.6 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -589,19 +616,14 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="Spatial3" type="Spatial" parent="." index="25"]
+[node name="MeshInstance3" type="MeshInstance" parent="corners" index="2"]
 
-editor/display_folded = true
-transform = Transform( -1, 0, -1.50996e-007, 0, 1, 0, 1.50996e-007, 0, -1, 3, 0, 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Spatial3" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 3, 0.4 )
+transform = Transform( -1, 0, -1.50996e-007, 0, 1, 0, 1.50996e-007, 0, -1, 4.6, 3, 5.6 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -611,19 +633,14 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "material" ]
 
-[node name="Spatial4" type="Spatial" parent="." index="26"]
+[node name="MeshInstance4" type="MeshInstance" parent="corners" index="3"]
 
-editor/display_folded = true
-transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 3, 0, -3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Spatial4" index="0"]
-
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 3, 0.4 )
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 4.6, 3, 0.4 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -633,9 +650,63 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 12 )
 _sections_unfolded = [ "Transform", "material" ]
+
+[node name="space" type="Area" parent="." index="10"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.630433, 2.83281, 0 )
+input_ray_pickable = false
+input_capture_on_drag = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision_layer = 524288
+collision_mask = 524290
+audio_bus_override = false
+audio_bus_name = "Master"
+reverb_bus_enable = false
+reverb_bus_name = "Master"
+reverb_bus_amount = 0.0
+reverb_bus_uniformity = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="space" index="0"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.120988, 0.240704, 0.0141954 )
+shape = SubResource( 5 )
+disabled = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="map" type="MeshInstance" parent="." index="11"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 3, 0 )
+visible = false
+layers = 2
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 6 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="body_entered" from="space" to="." method="_on_enter_room"]
+
+[connection signal="body_exited" from="space" to="." method="_on_leave_room"]
 
 

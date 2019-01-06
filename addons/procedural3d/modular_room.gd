@@ -1,6 +1,7 @@
 tool
 extends Spatial
 
+export(bool) var is_room = true
 export(int, 1, 10) var probability = 1
 
 var model = null
@@ -47,7 +48,7 @@ func has_connected_exits():
 			return true
 	return false
 
-func generate(undo_redo):
+func generate():
 	var generator = get_parent().get_parent()
 	if generator.get_script() != GENERATOR_SCRIPT:
 		return false
@@ -56,6 +57,8 @@ func generate(undo_redo):
 			c.generate(generator)
 
 func _on_enter_room(body):
+	if has_node("map"):
+		get_node("map").visible = true
 	emit_signal("enter_room", body)
 
 func _on_leave_room(body):

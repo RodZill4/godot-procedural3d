@@ -15,7 +15,6 @@ func reload_toolbar():
 		remove_control_from_container(CONTAINER_SPATIAL_EDITOR_MENU, toolbar)
 	toolbar = load("res://addons/procedural3d/toolbar.tscn").instance()
 	add_control_to_container(CONTAINER_SPATIAL_EDITOR_MENU, toolbar)
-	toolbar.plugin = self
 
 func _get_state():
 	var s = {}
