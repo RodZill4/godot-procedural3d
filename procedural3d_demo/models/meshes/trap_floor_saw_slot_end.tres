@@ -1,8 +1,8 @@
-[gd_resource type="ArrayMesh" load_steps=3 format=2]
+[gd_resource type="ArrayMesh" load_steps=4 format=2]
 
 [ext_resource path="res://procedural3d_demo/models/materials/Grey.tres" type="Material" id=1]
-[ext_resource path="res://procedural3d_demo/models/materials/Dark_Grey.tres" type="Material" id=2]
-
+[ext_resource path="res://procedural3d_demo/models/materials/Floor.tres" type="Material" id=2]
+[ext_resource path="res://procedural3d_demo/models/materials/Dark_Grey.tres" type="Material" id=3]
 
 [resource]
 
@@ -55,7 +55,7 @@ surfaces/3 = {
 "blend_shape_data": [  ],
 "format": 98071,
 "index_count": 45,
-"material": ExtResource( 2 ),
+"material": ExtResource( 3 ),
 "name": "Dark_Grey",
 "primitive": 4,
 "skeleton_aabb": [  ],
@@ -74,4 +74,5 @@ surfaces/4 = {
 "skeleton_aabb": [  ],
 "vertex_count": 8
 }
+_sections_unfolded = [ "surface_2" ]
 

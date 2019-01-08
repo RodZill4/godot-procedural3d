@@ -57,7 +57,7 @@ func generate():
 			c.generate(generator)
 
 func _on_enter_room(body):
-	if has_node("map"):
+	if !Engine.editor_hint and has_node("map"):
 		get_node("map").visible = true
 	emit_signal("enter_room", body)
 

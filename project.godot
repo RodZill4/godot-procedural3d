@@ -18,6 +18,11 @@ config/icon="res://icon.png"
 
 enabled=PoolStringArray( "procedural3d" )
 
+[layer_names]
+
+3d_render/layer_1="World"
+3d_render/layer_2="Map"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

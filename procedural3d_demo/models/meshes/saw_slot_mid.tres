@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" load_steps=3 format=2]
 
-[ext_resource path="res://procedural3d_demo/models/materials/Dark_Grey.tres" type="Material" id=1]
+[ext_resource path="res://procedural3d_demo/models/materials/Floor.tres" type="Material" id=1]
 [ext_resource path="res://procedural3d_demo/models/materials/Grey.tres" type="Material" id=2]
 
 [resource]
@@ -83,4 +83,5 @@ surfaces/5 = {
 "skeleton_aabb": [  ],
 "vertex_count": 12
 }
+_sections_unfolded = [ "surface_1", "surface_3", "surface_5" ]
 
