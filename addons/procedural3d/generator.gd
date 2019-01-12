@@ -2,6 +2,7 @@ tool
 extends Spatial
 
 export(int, 0, 20) var min_room_count = 0
+export(bool) var use_physics_engine = false
 
 var toolbar = null
 var generating = false
@@ -91,22 +92,29 @@ func do_generate():
 			var selected_exit_name = selected_exit.name
 			selected_exit.join(exit)
 			var keep = true
-			if room.has_node("space"):
-				var area1 = room.get_node("space")
-				PhysicsServer.set_active(true)
-				yield(get_tree(), "physics_frame")
-				yield(get_tree(), "physics_frame")
-				yield(get_tree(), "physics_frame")
-				if !area1.get_overlapping_areas().empty():
-					generated.remove_child(room)
-					room.free()
-					exits.append(exit)
-					keep = false
-					exit.forbidden_connections.append({ room=room_name, exit=selected_exit_name })
-				PhysicsServer.set_active(false)
+			if use_physics_engine:
+				if room.has_node("space"):
+					var area1 = room.get_node("space")
+					PhysicsServer.set_active(true)
+					yield(get_tree(), "physics_frame")
+					yield(get_tree(), "physics_frame")
+					if !area1.get_overlapping_areas().empty():
+						keep = false
+					PhysicsServer.set_active(false)
+			else:
+				for r in generated.get_children():
+					if room != r and room.intersects(r):
+						keep = false
+						break
+				if keep:
+					yield(get_tree(), "idle_frame")
 			if keep:
 				for e in room.get_exits():
 					exits.append(e)
+			else:
+				generated.remove_child(room)
+				exits.append(exit)
+				exit.forbidden_connections.append({ room=room_name, exit=selected_exit_name })
 		if exits.empty():
 			var count = 0
 			for c in generated.get_children():

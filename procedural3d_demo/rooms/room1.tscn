@@ -73,12 +73,10 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[node name="room1" type="Spatial"]
+[node name="room1" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-is_room = true
-probability = 1
 
 [node name="floor" parent="." index="0" instance=ExtResource( 2 )]
 

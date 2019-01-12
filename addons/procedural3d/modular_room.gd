@@ -2,7 +2,7 @@ tool
 extends Spatial
 
 export(bool) var is_room = true
-export(int, 1, 10) var probability = 1
+export(int, 0, 10) var probability = 1
 
 var model = null
 
@@ -63,4 +63,19 @@ func _on_enter_room(body):
 
 func _on_leave_room(body):
 	emit_signal("leave_room", body)
+
+func intersects(room):
+	if !has_node("space") or !room.has_node("space"):
+		return false
+	var my_space = get_node("space")
+	var room_space = room.get_node("space")
+	for shape1 in my_space.get_children():
+		if !(shape1 is CollisionShape) or !(shape1.shape is BoxShape):
+			continue
+		for shape2 in room_space.get_children():
+			if !(shape2 is CollisionShape) or !(shape2.shape is BoxShape):
+				continue
+			if preload("res://addons/procedural3d/intersect_obb.gd").intersect(shape1, shape2):
+				return true
+	return false
 
