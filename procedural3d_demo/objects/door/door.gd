@@ -17,7 +17,7 @@ func _on_detect_area_body_entered(body):
 		open = true
 
 func _on_detect_area_body_exited(body):
-	if !has_nonstatic_overlapping_bodies(body):
+	if !(body is StaticBody) and !has_nonstatic_overlapping_bodies(body):
 		$timer.start()
 
 func _on_timer_timeout():
