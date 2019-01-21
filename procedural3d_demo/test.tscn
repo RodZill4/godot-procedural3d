@@ -217,11 +217,11 @@ directional_shadow_max_distance = 200.0
 
 [node name="DungeonGenerator" type="Spatial" parent="." index="1"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22, 0 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-min_room_count = 5
+random_seed = 0
+min_room_count = 10
 use_physics_engine = false
 
 [node name="rooms" type="Spatial" parent="DungeonGenerator" index="0"]
@@ -432,7 +432,7 @@ _sections_unfolded = [ "Render Target", "Rendering" ]
 
 [node name="Camera" type="InterpolatedCamera" parent="Map/ViewportContainer/Viewport" index="0"]
 
-transform = Transform( -1, 6.06765e-008, -6.29374e-008, -2.84217e-014, 0.71992, 0.694057, 8.74228e-008, 0.694058, -0.71992, 0, 29.7988, -6.10558 )
+transform = Transform( -1, 6.06765e-008, -6.29374e-008, -1.06581e-014, 0.71992, 0.694057, 8.74228e-008, 0.694058, -0.71992, 0, 29.7988, -6.10558 )
 keep_aspect = 1
 cull_mask = 2
 environment = null

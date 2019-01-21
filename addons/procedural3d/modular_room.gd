@@ -21,8 +21,8 @@ func get_toolbar_buttons(tb = null):
 	buttons.append({ label="Configure", function="generate" })
 	return buttons
 
-func duplicate():
-	var rv = .duplicate(DUPLICATE_USE_INSTANCING)
+func duplicate(flags = DUPLICATE_USE_INSTANCING):
+	var rv = .duplicate(flags)
 	rv.model = name
 	return rv
 

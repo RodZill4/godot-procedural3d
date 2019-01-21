@@ -1,6 +1,7 @@
 tool
 extends Spatial
 
+export(int) var random_seed = 0
 export(int, 0, 20) var min_room_count = 0
 export(bool) var use_physics_engine = false
 
@@ -31,6 +32,13 @@ func do_generate():
 	var exits
 	var not_enough_rooms = true
 	while not_enough_rooms and !do_stop_generation:
+		if random_seed == 0:
+			randomize()
+			var s = randi()%0x3fffffff
+			print(s)
+			seed(s)
+		else:
+			seed(random_seed)
 		if has_node("generated"):
 			generated = get_node("generated")
 			exits = []
@@ -123,11 +131,13 @@ func do_generate():
 			print("Dungeon has %d rooms" % count)
 			if count >= min_room_count:
 				not_enough_rooms = false
-			else:
+			elif random_seed == 0:
 				remove_child(generated)
 				generated.free()
 		else:
 			print(str(exits.size())+" pending exits")
+		if random_seed != 0:
+			break
 	if exits.empty() and !not_enough_rooms:
 		for c in generated.get_children():
 			c.generate()
